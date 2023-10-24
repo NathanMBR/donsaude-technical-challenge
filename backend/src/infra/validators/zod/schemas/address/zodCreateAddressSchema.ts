@@ -29,8 +29,16 @@ export const zodCreateAddressSchema = zod.object({
     .nullable()
     .optional()
     .transform(complement => complement || null),
-  city: zod.string(),
-  state: zod.string()
+  city: zod.string({
+    description: 'The address city',
+    required_error: 'city is required',
+    invalid_type_error: 'city must be a string'
+  }),
+  state: zod.string({
+    description: 'The address state',
+    required_error: 'state is required',
+    invalid_type_error: 'state must be a string'
+  })
 }, {
   description: 'The address payload',
   required_error: 'payload is required',
