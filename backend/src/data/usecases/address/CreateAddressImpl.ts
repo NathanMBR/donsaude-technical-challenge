@@ -15,7 +15,10 @@ export class CreateAddressImpl implements CreateAddress {
     if (!validationResult.success)
       return {
         success: false,
-        error: 'INVALID_REQUEST'
+        error: {
+          type: 'INVALID_REQUEST',
+          message: validationResult.error.message
+        }
       }
 
     const address = await this.createAddressRepository.create(validationResult.data)
