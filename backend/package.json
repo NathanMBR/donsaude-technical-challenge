@@ -6,7 +6,11 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "start": "node .",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:unit": "jest --testMatch **/*.spec.ts",
+    "test:e2e": "jest --testMatch **/*.test.ts",
+    "test:ci": "jest --verbose"
   },
   "repository": {
     "type": "git",
