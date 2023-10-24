@@ -14,16 +14,9 @@ export namespace CreateAddressValidator {
     }
   }
 
-  type FailResponseErrorTypes =
-    'INVALID_PROPERTY_TYPE' |
-    'INVALID_POSTAL_CODE_FORMAT'
-
   type FailResponse = {
     success: false
-    error: {
-      type: FailResponseErrorTypes
-      message?: string
-    }
+    errorMessage?: string
   }
 
   export type Response = SuccessResponse | FailResponse
