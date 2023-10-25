@@ -82,7 +82,7 @@ describe('CreateAddressImpl', () => {
     const SUTResponse = await SUT.execute(SUTRequest)
 
     const expectedResponse = {
-      success: true,
+      type: 'SUCCESS',
       data: {
         id: 1,
         postalCode: 'test_postal_code',
@@ -122,11 +122,8 @@ describe('CreateAddressImpl', () => {
     const SUTResponse = await SUT.execute(SUTRequest)
 
     const expectedResponse = {
-      success: false,
-      error: {
-        type: 'INVALID_REQUEST',
-        message: 'Test error'
-      }
+      type: 'INVALID_REQUEST',
+      message: 'Test error'
     }
 
     expect(SUTResponse).toEqual(expectedResponse)
@@ -153,11 +150,8 @@ describe('CreateAddressImpl', () => {
     const SUTResponse = await SUT.execute(SUTRequest)
 
     const expectedResponse = {
-      success: false,
-      error: {
-        type: 'INVALID_REQUEST',
-        message: 'Test error'
-      }
+      type: 'INVALID_REQUEST',
+      message: 'Test error'
     }
 
     expect(SUTResponse).toEqual(expectedResponse)
