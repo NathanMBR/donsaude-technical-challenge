@@ -106,10 +106,7 @@ describe('CreateAddressImpl', () => {
 
     jest.spyOn(createAddressValidatorStub, 'validate').mockReturnValueOnce({
       success: false,
-      error: {
-        type: 'INVALID_PROPERTY_TYPE',
-        message: 'Test error'
-      }
+      errorMessage: 'Test error'
     })
 
     const SUTRequest = {
@@ -140,10 +137,7 @@ describe('CreateAddressImpl', () => {
 
     jest.spyOn(createAddressValidatorStub, 'validate').mockReturnValueOnce({
       success: false,
-      error: {
-        type: 'INVALID_POSTAL_CODE_FORMAT',
-        message: 'Test error'
-      }
+      errorMessage: 'Test error'
     })
 
     const SUTRequest = {
