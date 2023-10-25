@@ -10,7 +10,7 @@ export class FindOneAddressController implements Controller {
   async handle (request: Controller.Request): Controller.Response {
     const { id } = request.params
 
-    const findOneAddressResponse = await this.findOneAddress.execute(id)
+    const findOneAddressResponse = await this.findOneAddress.execute({ id })
 
     if (findOneAddressResponse.type === 'INVALID_REQUEST')
       return HttpResponseHelper.badRequest(findOneAddressResponse.message)
