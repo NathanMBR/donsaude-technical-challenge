@@ -28,10 +28,12 @@ const getStubAddress = () => ({
 const createSpy = jest.spyOn(prisma.address, 'create')
 const findUniqueSpy = jest.spyOn(prisma.address, 'findUnique')
 const findManySpy = jest.spyOn(prisma.address, 'findMany')
+const countSpy = jest.spyOn(prisma.address, 'count')
 
 createSpy.mockImplementation(jest.fn(async () => getStubAddress()) as any)
 findUniqueSpy.mockImplementation(jest.fn(async () => getStubAddress()) as any)
 findManySpy.mockImplementation(jest.fn(async () => [getStubAddress()]) as any)
+countSpy.mockImplementation(jest.fn(async () => 1) as any)
 
 const getSUTEnvironment = () => {
   const SUT = new PrismaAddressRepository(prisma)
@@ -174,5 +176,35 @@ describe('PrismaFindManyAddressesRepository', () => {
     }]
 
     expect(SUTResponse).toEqual(expectedResponse)
+  })
+})
+
+describe('PrismaCountManyAddressesRepository', () => {
+  it('should successfully count many addresses', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      search: 'test'
+    }
+
+    const SUTResponse = await SUT.countMany(SUTRequest)
+
+    const expectedResponse = 1
+
+    expect(SUTResponse).toBe(expectedResponse)
+  })
+
+  it('should successfully count many addresses without optional parameters', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      // search: 'test'
+    }
+
+    const SUTResponse = await SUT.countMany(SUTRequest)
+
+    const expectedResponse = 1
+
+    expect(SUTResponse).toBe(expectedResponse)
   })
 })
