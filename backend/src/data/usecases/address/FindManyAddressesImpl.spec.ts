@@ -17,8 +17,8 @@ const getSUTEnvironment = () => {
   class PaginationValidatorStub implements PaginationValidator {
     validate (_request: PaginationValidator.Request): PaginationValidator.Response {
       return {
-        take: 10,
-        skip: 10,
+        page: 10,
+        quantity: 10,
         search: 'test_search'
       }
     }
@@ -83,7 +83,7 @@ describe('FindManyAddressesImpl', () => {
     const expectedResponse = {
       quantityPerPage: 10,
       total: 100,
-      currentPage: 2,
+      currentPage: 10,
       lastPage: 10,
       data: [{
         id: 1,
