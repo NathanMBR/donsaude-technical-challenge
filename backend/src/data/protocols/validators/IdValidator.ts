@@ -1,7 +1,17 @@
 export namespace IdValidator {
   export type Request = any
 
-  export type Response = boolean
+  type SuccessResponse = {
+    success: true
+    data: number
+  }
+
+  type FailResponse = {
+    success: false
+    errorMessage?: string
+  }
+
+  export type Response = SuccessResponse | FailResponse
 }
 
 export interface IdValidator {

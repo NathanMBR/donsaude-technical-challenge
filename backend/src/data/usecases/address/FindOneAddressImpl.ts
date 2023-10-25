@@ -10,11 +10,11 @@ export class FindOneAddressImpl implements FindOneAddress {
   async execute (request: FindOneAddress.Request): FindOneAddress.Response {
     const { id } = request
 
-    const isIdValid = this.idValidator.validate(id)
-    if (!isIdValid)
+    const idValidationResponse = this.idValidator.validate(id)
+    if (!idValidationResponse.success)
       return {
         type: 'INVALID_REQUEST',
-        message: 'Invalid ID'
+        message: idValidationResponse.errorMessage
       }
 
     const address = await this.findOneAddressRepository.findOne({ id })
