@@ -21,9 +21,7 @@
     "start:docker": "npx prisma migrate deploy && node .",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "test:unit": "jest --testMatch **/*.spec.ts",
-    "test:e2e": "jest --testMatch **/*.test.ts",
-    "test:ci": "jest --verbose"
+    "test:unit": "jest --testMatch **/*.spec.ts"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
