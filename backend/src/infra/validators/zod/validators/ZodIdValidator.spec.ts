@@ -8,6 +8,7 @@ import { ZodError } from 'zod'
 
 import { ZodIdValidator } from './ZodIdValidator'
 import { zodIdSchema } from '../schemas'
+import { ZodValidationFailureWithoutIssueError } from '../errors'
 
 const getSUTEnvironment = () => {
   const SUT = new ZodIdValidator()
@@ -25,9 +26,12 @@ describe('ZodIdValidator', () => {
 
     const SUTResponse = SUT.validate(SUTRequest)
 
-    const expectedResponse = true
+    const expectedResponse = {
+      success: true,
+      data: SUTRequest
+    }
 
-    expect(SUTResponse).toBe(expectedResponse)
+    expect(SUTResponse).toEqual(expectedResponse)
   })
 
   it('should return false if validation fails', () => {
@@ -48,9 +52,29 @@ describe('ZodIdValidator', () => {
 
     const SUTResponse = SUT.validate(SUTRequest)
 
-    const expectedResponse = false
+    const expectedResponse = {
+      success: false,
+      errorMessage: 'Test error'
+    }
 
-    expect(SUTResponse).toBe(expectedResponse)
+    expect(SUTResponse).toEqual(expectedResponse)
+  })
+
+  it('should throw error if validation fails without issue', () => {
+    const { SUT } = getSUTEnvironment()
+
+    jest.spyOn(zodIdSchema, 'safeParse').mockReturnValueOnce({
+      success: false,
+      error: new ZodError([])
+    })
+
+    const SUTRequest = 1
+
+    const getSUTResponse = () => SUT.validate(SUTRequest)
+
+    const error = new ZodValidationFailureWithoutIssueError()
+
+    expect(getSUTResponse).toThrow(error)
   })
 
   it('should not call unsafe zod method', () => {

@@ -16,7 +16,10 @@ const globalDate = new Date()
 const getSUTEnvironment = () => {
   class IdValidatorStub implements IdValidator {
     validate (_request: IdValidator.Request): IdValidator.Response {
-      return true
+      return {
+        success: true,
+        data: 1
+      }
     }
   }
 
@@ -84,10 +87,13 @@ describe('FindOneAddressImpl', () => {
     expect(SUTResponse).toEqual(expectedResponse)
   })
 
-  it('should return INVALID_REQUEST if id validation returns false', async () => {
+  it('should return INVALID_REQUEST if id validation returns error', async () => {
     const { SUT, idValidatorStub } = getSUTEnvironment()
 
-    jest.spyOn(idValidatorStub, 'validate').mockReturnValueOnce(false)
+    jest.spyOn(idValidatorStub, 'validate').mockReturnValueOnce({
+      success: false,
+      errorMessage: 'Invalid ID'
+    })
 
     const SUTRequest = {
       id: 1
