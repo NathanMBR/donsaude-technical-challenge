@@ -1,10 +1,21 @@
 import { type PrismaClient } from '@prisma/client'
+
 import {
   type CreateAddressRepository,
   type FindOneAddressRepository,
   type FindManyAddressesRepository,
   type CountManyAddressesRepository
 } from '../../../data'
+
+const columnsToSearch = [
+  'postalCode',
+  'street',
+  'number',
+  'neighborhood',
+  'complement',
+  'city',
+  'state'
+]
 
 export class PrismaAddressRepository implements
   CreateAddressRepository,
@@ -43,37 +54,17 @@ export class PrismaAddressRepository implements
       search
     } = request
 
+    const searchPattern = {
+      contains: search
+    }
+
     const addresses = await this.prisma.address.findMany({
       where: {
-        OR: [{
-          postalCode: {
-            contains: search
-          }
-        }, {
-          street: {
-            contains: search
-          }
-        }, {
-          number: {
-            contains: search
-          }
-        }, {
-          neighborhood: {
-            contains: search
-          }
-        }, {
-          complement: {
-            contains: search
-          }
-        }, {
-          city: {
-            contains: search
-          }
-        }, {
-          state: {
-            contains: search
-          }
-        }],
+        OR: search
+          ? columnsToSearch.map(column => ({
+            [column]: searchPattern
+          }))
+          : undefined,
 
         deletedAt: null
       },
@@ -88,37 +79,17 @@ export class PrismaAddressRepository implements
   async countMany (request: CountManyAddressesRepository.Request): CountManyAddressesRepository.Response {
     const { search } = request
 
+    const searchPattern = {
+      contains: search
+    }
+
     const addressesCount = await this.prisma.address.count({
       where: {
-        OR: [{
-          postalCode: {
-            contains: search
-          }
-        }, {
-          street: {
-            contains: search
-          }
-        }, {
-          number: {
-            contains: search
-          }
-        }, {
-          neighborhood: {
-            contains: search
-          }
-        }, {
-          complement: {
-            contains: search
-          }
-        }, {
-          city: {
-            contains: search
-          }
-        }, {
-          state: {
-            contains: search
-          }
-        }],
+        OR: search
+          ? columnsToSearch.map(column => ({
+            [column]: searchPattern
+          }))
+          : undefined,
 
         deletedAt: null
       }
