@@ -17,7 +17,8 @@ export class FindOneAddressImpl implements FindOneAddress {
         message: idValidationResponse.errorMessage
       }
 
-    const address = await this.findOneAddressRepository.findOne({ id })
+    const parsedId = idValidationResponse.data
+    const address = await this.findOneAddressRepository.findOne({ id: parsedId })
     if (!address || address.deletedAt)
       return {
         type: 'NOT_FOUND'
