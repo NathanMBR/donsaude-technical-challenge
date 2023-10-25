@@ -2,13 +2,15 @@ import { type PrismaClient } from '@prisma/client'
 import {
   type CreateAddressRepository,
   type FindOneAddressRepository,
-  type FindManyAddressesRepository
+  type FindManyAddressesRepository,
+  type CountManyAddressesRepository
 } from '../../../data'
 
 export class PrismaAddressRepository implements
   CreateAddressRepository,
   FindOneAddressRepository,
-  FindManyAddressesRepository
+  FindManyAddressesRepository,
+  CountManyAddressesRepository
 {
   constructor (
     private readonly prisma: PrismaClient
@@ -81,5 +83,47 @@ export class PrismaAddressRepository implements
     })
 
     return addresses
+  }
+
+  async countMany (request: CountManyAddressesRepository.Request): CountManyAddressesRepository.Response {
+    const { search } = request
+
+    const addressesCount = await this.prisma.address.count({
+      where: {
+        OR: [{
+          postalCode: {
+            contains: search
+          }
+        }, {
+          street: {
+            contains: search
+          }
+        }, {
+          number: {
+            contains: search
+          }
+        }, {
+          neighborhood: {
+            contains: search
+          }
+        }, {
+          complement: {
+            contains: search
+          }
+        }, {
+          city: {
+            contains: search
+          }
+        }, {
+          state: {
+            contains: search
+          }
+        }],
+
+        deletedAt: null
+      }
+    })
+
+    return addressesCount
   }
 }
