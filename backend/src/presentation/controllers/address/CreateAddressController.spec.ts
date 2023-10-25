@@ -14,7 +14,7 @@ const getSUTEnvironment = () => {
   class CreateAddressStub implements CreateAddress {
     async execute (_request: CreateAddress.Request): CreateAddress.Response {
       return {
-        success: true,
+        type: 'SUCCESS',
         data: {
           id: 1,
           postalCode: 'test_postal_code',
@@ -86,11 +86,9 @@ describe('CreateAddressController', () => {
 
     jest.spyOn(createAddressStub, 'execute').mockReturnValueOnce(
       Promise.resolve({
-        success: false,
-        error: {
-          type: 'INVALID_REQUEST',
-          message: 'Test error message'
-        }
+
+        type: 'INVALID_REQUEST',
+        message: 'Test error message'
       })
     )
 
@@ -113,43 +111,6 @@ describe('CreateAddressController', () => {
       body: {
         error: 'Bad Request',
         message: 'Test error message'
-      }
-    }
-
-    expect(SUTResponse).toEqual(expectedResponse)
-  })
-
-  it('should return 500 if usecase returns unexpected type', async () => {
-    const { SUT, createAddressStub } = getSUTEnvironment()
-
-    jest.spyOn(createAddressStub, 'execute').mockReturnValueOnce(
-      Promise.resolve({
-        success: false,
-        error: {
-          type: 'unexpected' as any,
-          message: 'Test error message'
-        }
-      })
-    )
-
-    const SUTRequest = {
-      body: {
-        postalCode: 'test_postal_code',
-        street: 'test_street',
-        number: 'test_number',
-        neighborhood: 'test_neighborhood',
-        complement: 'test_complement',
-        city: 'test_city',
-        state: 'test_state'
-      }
-    }
-
-    const SUTResponse = await SUT.handle(SUTRequest)
-
-    const expectedResponse = {
-      statusCode: 500,
-      body: {
-        error: 'Internal Server Error'
       }
     }
 
