@@ -14,17 +14,14 @@ export class CreateAddressImpl implements CreateAddress {
     const validationResult = this.createAddressValidator.validate(request)
     if (!validationResult.success)
       return {
-        success: false,
-        error: {
-          type: 'INVALID_REQUEST',
-          message: validationResult.errorMessage
-        }
+        type: 'INVALID_REQUEST',
+        message: validationResult.errorMessage
       }
 
     const address = await this.createAddressRepository.create(validationResult.data)
 
     return {
-      success: true,
+      type: 'SUCCESS',
       data: address
     }
   }

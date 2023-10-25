@@ -12,21 +12,16 @@ export namespace CreateAddress {
   }
 
   type SuccessResponse = {
-    success: true
+    type: 'SUCCESS'
     data: Address
   }
 
-  type CreateAddressErrorTypes = 'INVALID_REQUEST'
-
-  type FailResponse = {
-    success: false
-    error: {
-      type: CreateAddressErrorTypes
-      message?: string
-    }
+  type InvalidRequestResponse = {
+    type: 'INVALID_REQUEST'
+    message?: string
   }
 
-  export type Response = Promise<SuccessResponse | FailResponse>
+  export type Response = Promise<SuccessResponse | InvalidRequestResponse>
 }
 
 export interface CreateAddress {
