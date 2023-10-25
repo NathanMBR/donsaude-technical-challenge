@@ -5,7 +5,21 @@ export namespace FindOneAddress {
     id: number
   }
 
-  export type Response = Promise<Address | null>
+  type SuccessResponse = {
+    type: 'SUCCESS'
+    data: Address
+  }
+
+  type InvalidRequestResponse = {
+    type: 'INVALID_REQUEST'
+    message?: string
+  }
+
+  type NotFoundResponse = {
+    type: 'NOT_FOUND'
+  }
+
+  export type Response = Promise<SuccessResponse | InvalidRequestResponse | NotFoundResponse>
 }
 
 export interface FindOneAddress {
