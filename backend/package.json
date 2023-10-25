@@ -20,8 +20,7 @@
     "start:dev": "node -r dotenv/config .",
     "start:docker": "npx prisma migrate deploy && node .",
     "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:unit": "jest --testMatch **/*.spec.ts"
+    "test:coverage": "jest --coverage"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
