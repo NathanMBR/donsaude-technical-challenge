@@ -122,4 +122,36 @@ describe('FindOneAddressImpl', () => {
 
     expect(SUTResponse).toEqual(expectedResponse)
   })
+
+  it('should return NOT_FOUND if deletedAt is defined', async () => {
+    const { SUT, findOneAddressRepositoryStub } = getSUTEnvironment()
+
+    jest.spyOn(findOneAddressRepositoryStub, 'findOne').mockReturnValueOnce(
+      Promise.resolve({
+        id: 1,
+        postalCode: 'test_postal_code',
+        street: 'test_street',
+        number: 'test_number',
+        neighborhood: 'test_neighborhood',
+        complement: 'test_complement',
+        city: 'test_city',
+        state: 'test_state',
+        createdAt: globalDate,
+        updatedAt: globalDate,
+        deletedAt: globalDate
+      })
+    )
+
+    const SUTRequest = {
+      id: 1
+    }
+
+    const SUTResponse = await SUT.execute(SUTRequest)
+
+    const expectedResponse = {
+      type: 'NOT_FOUND'
+    }
+
+    expect(SUTResponse).toEqual(expectedResponse)
+  })
 })
