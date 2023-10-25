@@ -18,7 +18,7 @@ export class FindOneAddressImpl implements FindOneAddress {
       }
 
     const address = await this.findOneAddressRepository.findOne({ id })
-    if (!address)
+    if (!address || address.deletedAt)
       return {
         type: 'NOT_FOUND'
       }
