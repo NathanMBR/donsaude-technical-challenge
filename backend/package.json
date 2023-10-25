@@ -18,6 +18,7 @@
     "build": "tsc -p tsconfig.build.json",
     "start": "node .",
     "start:dev": "node -r dotenv/config .",
+    "start:docker": "npx prisma migrate deploy && node .",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:unit": "jest --testMatch **/*.spec.ts",
