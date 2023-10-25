@@ -6,7 +6,7 @@ import {
 
 import { getRepositoryPaginationResponse } from './getRepositoryPaginationResponse'
 
-describe('getRepositoryPaginationResponse Helper', () => {
+describe('getRepositoryPaginationResponse', () => {
   it('should successfully get the repository pagination response', () => {
     const SUTRequest = {
       take: 10,
