@@ -25,8 +25,11 @@ const getStubAddress = () => ({
   deletedAt: null
 })
 
-jest.spyOn(prisma.address, 'create').mockImplementation(jest.fn(async () => getStubAddress()) as any)
-jest.spyOn(prisma.address, 'findUnique').mockImplementation(jest.fn(async () => getStubAddress()) as any)
+const createSpy = jest.spyOn(prisma.address, 'create')
+const findUniqueSpy = jest.spyOn(prisma.address, 'findUnique')
+
+createSpy.mockImplementation(jest.fn(async () => getStubAddress()) as any)
+findUniqueSpy.mockImplementation(jest.fn(async () => getStubAddress()) as any)
 
 const getSUTEnvironment = () => {
   const SUT = new PrismaAddressRepository(prisma)
@@ -100,7 +103,7 @@ describe('PrismaFindOneAddressRepository', () => {
   it('should return null if search returns null', async () => {
     const { SUT } = getSUTEnvironment()
 
-    jest.spyOn(prisma.address, 'findUnique').mockImplementation(jest.fn(async () => null) as any)
+    jest.spyOn(prisma.address, 'findUnique').mockImplementationOnce(jest.fn(async () => null) as any)
 
     const SUTRequest = {
       id: 1
@@ -108,19 +111,7 @@ describe('PrismaFindOneAddressRepository', () => {
 
     const SUTResponse = await SUT.findOne(SUTRequest)
 
-    const expectedResponse = {
-      id: 1,
-      postalCode: 'test_postal_code',
-      street: 'test_street',
-      number: 'test_number',
-      neighborhood: 'test_neighborhood',
-      complement: 'test_complement',
-      city: 'test_city',
-      state: 'test_state',
-      createdAt: globalDate,
-      updatedAt: globalDate,
-      deletedAt: null
-    }
+    const expectedResponse = null
 
     expect(SUTResponse).toEqual(expectedResponse)
   })
