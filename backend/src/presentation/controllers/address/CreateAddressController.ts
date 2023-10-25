@@ -9,12 +9,9 @@ export class CreateAddressController implements Controller {
     const { body } = request
 
     const createAddressResponse = await this.createAddress.execute(body)
-    if (createAddressResponse.success)
-      return HttpResponseHelper.created(createAddressResponse.data)
+    if (createAddressResponse.type === 'INVALID_REQUEST')
+      return HttpResponseHelper.badRequest(createAddressResponse.message)
 
-    if (createAddressResponse.error.type === 'INVALID_REQUEST')
-      return HttpResponseHelper.badRequest(createAddressResponse.error.message)
-
-    return HttpResponseHelper.internalServerError()
+    return HttpResponseHelper.created(createAddressResponse.data)
   }
 }
