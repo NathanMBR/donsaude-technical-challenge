@@ -19,6 +19,7 @@
       "@typescript-eslint/strict-boolean-expressions": "off",
       "@typescript-eslint/no-extraneous-class": "off",
       "@typescript-eslint/brace-style": "off",
+      "@typescript-eslint/array-type": "off",
       "curly": "off"
     }
 }
