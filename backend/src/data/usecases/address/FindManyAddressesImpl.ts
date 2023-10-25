@@ -25,7 +25,10 @@ export class FindManyAddressesImpl implements FindManyAddresses {
     })
 
     const [addresses, addressesCount] = await Promise.all([
-      this.findManyAddressesRepository.findMany(searchParams),
+      this.findManyAddressesRepository.findMany({
+        ...searchParams,
+        search: paginationParams.search
+      }),
       this.countManyAddressesRepository.countMany({ search: paginationParams.search })
     ])
 
