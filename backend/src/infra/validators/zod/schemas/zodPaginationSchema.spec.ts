@@ -107,7 +107,7 @@ describe('zodPaginationSchema', () => {
     expect(issue.message).toBe('The page number must be an integer')
   })
 
-  it("should fail validation if page isn't a positive number", () => {
+  it("should fail validation if page isn't at least 1", () => {
     const SUTRequest = {
       page: -1,
       quantity: 10,
@@ -118,7 +118,7 @@ describe('zodPaginationSchema', () => {
     const issue = SUTResponse.error.issues[0]!
 
     expect(SUTResponse.success).toBe(false)
-    expect(issue.message).toBe('The page number must be a positive number')
+    expect(issue.message).toBe('The page number must be at least 1')
   })
 
   it("should fail validation if quantity isn't defined", () => {
@@ -163,7 +163,7 @@ describe('zodPaginationSchema', () => {
     expect(issue.message).toBe('The quantity must be an integer')
   })
 
-  it("should fail validation if quantity isn't a positive number", () => {
+  it("should fail validation if quantity isn't at least 1", () => {
     const SUTRequest = {
       page: 1,
       quantity: -1,
@@ -174,7 +174,21 @@ describe('zodPaginationSchema', () => {
     const issue = SUTResponse.error.issues[0]!
 
     expect(SUTResponse.success).toBe(false)
-    expect(issue.message).toBe('The quantity must be a positive number')
+    expect(issue.message).toBe('The quantity must be at least 1')
+  })
+
+  it("should fail validation if quantity isn't at most 100", () => {
+    const SUTRequest = {
+      page: 1,
+      quantity: 256,
+      search: 'test'
+    }
+
+    const SUTResponse = zodPaginationSchema.safeParse(SUTRequest) as SUTFailResponse
+    const issue = SUTResponse.error.issues[0]!
+
+    expect(SUTResponse.success).toBe(false)
+    expect(issue.message).toBe('The quantity must be at most 100')
   })
 
   it("should fail validation if search isn't a string", () => {
