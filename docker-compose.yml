@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:16.0-alpine3.18
+    restart: 'no'
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-h", "localhost", "-p", "5432", "-U", "admin", "-d", "donsaude" ]
+      interval: 5s
+      timeout: 30s
+      retries: 20
+      start_period: 10s
+    environment:
+      - POSTGRES_DB=donsaude
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5432:5432
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: 'no'
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgresql://admin:admin@db:5432/donsaude?schema=public
+    links:
+      - db
+    volumes:
+      - ./backend:/home/node/app
+    ports:
+      - 3000:3000
+    depends_on:
+      db:
+        condition: service_healthy
