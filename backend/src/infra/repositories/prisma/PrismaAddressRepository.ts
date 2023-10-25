@@ -1,12 +1,14 @@
 import { type PrismaClient } from '@prisma/client'
 import {
   type CreateAddressRepository,
-  type FindOneAddressRepository
+  type FindOneAddressRepository,
+  type FindManyAddressesRepository
 } from '../../../data'
 
 export class PrismaAddressRepository implements
   CreateAddressRepository,
-  FindOneAddressRepository
+  FindOneAddressRepository,
+  FindManyAddressesRepository
 {
   constructor (
     private readonly prisma: PrismaClient
@@ -30,5 +32,54 @@ export class PrismaAddressRepository implements
     })
 
     return address
+  }
+
+  async findMany (request: FindManyAddressesRepository.Request): FindManyAddressesRepository.Response {
+    const {
+      take,
+      skip,
+      search
+    } = request
+
+    const addresses = await this.prisma.address.findMany({
+      where: {
+        OR: [{
+          postalCode: {
+            contains: search
+          }
+        }, {
+          street: {
+            contains: search
+          }
+        }, {
+          number: {
+            contains: search
+          }
+        }, {
+          neighborhood: {
+            contains: search
+          }
+        }, {
+          complement: {
+            contains: search
+          }
+        }, {
+          city: {
+            contains: search
+          }
+        }, {
+          state: {
+            contains: search
+          }
+        }],
+
+        deletedAt: null
+      },
+
+      take,
+      skip
+    })
+
+    return addresses
   }
 }
