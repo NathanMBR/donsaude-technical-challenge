@@ -4,7 +4,10 @@ import {
   type FindManyAddressesRepository,
   type CountManyAddressesRepository
 } from '../../protocols'
-import { getRepositoryPaginationResponse } from '../../helpers'
+import {
+  getRepositoryPaginationRequest,
+  getRepositoryPaginationResponse
+} from '../../helpers'
 
 export class FindManyAddressesImpl implements FindManyAddresses {
   constructor (
@@ -16,14 +19,19 @@ export class FindManyAddressesImpl implements FindManyAddresses {
   async execute (request: FindManyAddresses.Request): FindManyAddresses.Response {
     const paginationParams = this.paginationValidator.validate(request)
 
+    const searchParams = getRepositoryPaginationRequest({
+      page: paginationParams.page,
+      quantity: paginationParams.quantity
+    })
+
     const [addresses, addressesCount] = await Promise.all([
-      this.findManyAddressesRepository.findMany(paginationParams),
+      this.findManyAddressesRepository.findMany(searchParams),
       this.countManyAddressesRepository.countMany({ search: paginationParams.search })
     ])
 
     const paginatedAddresses = getRepositoryPaginationResponse({
-      take: paginationParams.take,
-      skip: paginationParams.skip,
+      take: searchParams.take,
+      skip: searchParams.skip,
       count: addressesCount,
       data: addresses
     })

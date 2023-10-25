@@ -1,11 +1,14 @@
-import { type RepositoryPagination } from '../models/RepositoryPagination'
-
 export type GetRepositoryPaginationRequestParam = {
   quantity: number
   page: number
 }
 
-export const getRepositoryPaginationRequest = (request: GetRepositoryPaginationRequestParam): Omit<RepositoryPagination, 'string'> => {
+export type GetRepositoryPaginationRequestReturn = {
+  take: number
+  skip: number
+}
+
+export const getRepositoryPaginationRequest = (request: GetRepositoryPaginationRequestParam): GetRepositoryPaginationRequestReturn => {
   const {
     quantity,
     page

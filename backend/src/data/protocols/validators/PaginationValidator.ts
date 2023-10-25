@@ -1,9 +1,11 @@
-import { type RepositoryPagination } from '../../models'
-
 export namespace PaginationValidator {
   export type Request = unknown
 
-  export type Response = RepositoryPagination
+  export type Response = {
+    quantity: number
+    page: number
+    search?: string
+  }
 }
 
 export interface PaginationValidator {
