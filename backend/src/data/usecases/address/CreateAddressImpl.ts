@@ -17,7 +17,7 @@ export class CreateAddressImpl implements CreateAddress {
         success: false,
         error: {
           type: 'INVALID_REQUEST',
-          message: validationResult.error.message
+          message: validationResult.errorMessage
         }
       }
 
