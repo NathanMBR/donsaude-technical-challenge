@@ -17,6 +17,7 @@
     "lint": "tsc --noEmit",
     "build": "tsc -p tsconfig.build.json",
     "start": "node .",
+    "start:dev": "node -r dotenv/config .",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:unit": "jest --testMatch **/*.spec.ts",
