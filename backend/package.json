@@ -39,6 +39,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@prisma/client": "^5.5.0",
     "zod": "^3.22.4"
   }
 }
