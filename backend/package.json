@@ -2,7 +2,7 @@
   "name": "donsaude-technical-challenge-backend",
   "version": "1.0.0",
   "description": "Backend side of the challenge",
-  "main": "./build/index.js",
+  "main": "./build/main/server.js",
   "author": "NathanMBR",
   "license": "MIT",
   "homepage": "https://github.com/NathanMBR/donsaude-technical-challenge#readme",
