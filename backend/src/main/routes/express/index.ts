@@ -1,1 +1,1 @@
-export * from './expressAddressRoutes'
+export * from './expressRouteAggregator'

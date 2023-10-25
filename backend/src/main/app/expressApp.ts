@@ -1,4 +1,4 @@
-import { expressAddressRoutes } from '../routes'
+import { expressRouter } from '../routes'
 
 import express from 'express'
 import cors from 'cors'
@@ -10,6 +10,6 @@ expressApp.use(express.json())
 expressApp.use(express.urlencoded({ extended: false }))
 expressApp.disable('x-powered-by')
 
-expressApp.use('/address', expressAddressRoutes)
+expressApp.use('/api', expressRouter)
 
 export { expressApp }
