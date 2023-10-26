@@ -3,7 +3,9 @@ export namespace DeleteAddress {
     id: number
   }
 
-  export type Response = Promise<void>
+  export type PossibleResponses = 'SUCCESS' | 'INVALID_REQUEST' | 'NOT_FOUND'
+
+  export type Response = Promise<PossibleResponses>
 }
 
 export interface DeleteAddress {
