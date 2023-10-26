@@ -1,14 +1,16 @@
 import { type CreatePartner } from '../../../domain'
 import {
-  type CreatePartnerRepository,
+  type CreatePartnerValidator,
   type FindOneAddressRepository,
-  type CreatePartnerValidator
+  type HashService,
+  type CreatePartnerRepository
 } from '../../protocols'
 
 export class CreatePartnerImpl implements CreatePartner {
   constructor (
     private readonly createPartnerValidator: CreatePartnerValidator,
     private readonly findOneAddressRepository: FindOneAddressRepository,
+    private readonly hashService: HashService,
     private readonly createPartnerRepository: CreatePartnerRepository
   ) {}
 
@@ -20,13 +22,18 @@ export class CreatePartnerImpl implements CreatePartner {
         message: validationResult.errorMessage
       }
 
-    const address = await this.findOneAddressRepository.findOne({ id: request.addressId })
+    const address = await this.findOneAddressRepository.findOne({ id: validationResult.data.addressId })
     if (!address || address.deletedAt)
       return {
         type: 'ADDRESS_NOT_FOUND'
       }
 
-    const partner = await this.createPartnerRepository.create(validationResult.data)
+    const hashedPassword = await this.hashService.hash({ text: validationResult.data.password })
+    const partner = await this.createPartnerRepository.create({
+      ...validationResult.data,
+      password: hashedPassword
+    })
+
     return {
       type: 'SUCCESS',
       data: partner
