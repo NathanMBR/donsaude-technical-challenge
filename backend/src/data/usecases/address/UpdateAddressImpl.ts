@@ -37,7 +37,7 @@ export class UpdateAddressImpl implements UpdateAddress {
         type: 'NOT_FOUND'
       }
 
-    const address = await this.updateAddressRepository.create({
+    const address = await this.updateAddressRepository.update({
       id: idValidationResult.data,
       ...updateRequestValidationResult.data
     })
