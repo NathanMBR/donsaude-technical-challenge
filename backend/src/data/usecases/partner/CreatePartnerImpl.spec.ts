@@ -7,6 +7,7 @@ import {
 
 import {
   type CreatePartnerValidator,
+  type FindOnePartnerByEmailRepository,
   type FindOneAddressRepository,
   type HashService,
   type CreatePartnerRepository
@@ -33,6 +34,12 @@ const getSUTEnvironment = () => {
           addressId: 1
         }
       }
+    }
+  }
+
+  class FindOnePartnerByEmailRepositoryStub implements FindOnePartnerByEmailRepository {
+    async findOneByEmail (_request: FindOnePartnerByEmailRepository.Request): FindOnePartnerByEmailRepository.Response {
+      return null
     }
   }
 
@@ -82,12 +89,14 @@ const getSUTEnvironment = () => {
   }
 
   const createPartnerValidatorStub = new CreatePartnerValidatorStub()
+  const findOnePartnerByEmailRepositoryStub = new FindOnePartnerByEmailRepositoryStub()
   const findOneAddressRepositoryStub = new FindOneAddressRepositoryStub()
   const hashServiceStub = new HashServiceStub()
   const createPartnerRepositoryStub = new CreatePartnerRepositoryStub()
 
   const SUT = new CreatePartnerImpl(
     createPartnerValidatorStub,
+    findOnePartnerByEmailRepositoryStub,
     findOneAddressRepositoryStub,
     hashServiceStub,
     createPartnerRepositoryStub
@@ -97,6 +106,7 @@ const getSUTEnvironment = () => {
     SUT,
 
     createPartnerValidatorStub,
+    findOnePartnerByEmailRepositoryStub,
     findOneAddressRepositoryStub,
     hashServiceStub,
     createPartnerRepositoryStub
@@ -191,6 +201,50 @@ describe('CreatePartnerImpl', () => {
     const expectedResponse = {
       type: 'INVALID_REQUEST',
       message: 'Test error'
+    }
+
+    expect(SUTResponse).toEqual(expectedResponse)
+  })
+
+  it('should return EMAIL_ALREADY_EXISTS if find one partner by email returns data', async () => {
+    const { SUT, findOnePartnerByEmailRepositoryStub } = getSUTEnvironment()
+
+    jest.spyOn(findOnePartnerByEmailRepositoryStub, 'findOneByEmail').mockReturnValueOnce(
+      Promise.resolve({
+        id: 1,
+        name: 'test_name',
+        email: 'test_email',
+        password: 'test_password',
+        category: 'test_category',
+        cnpj: 'test_cnpj',
+        phone: 'test_phone',
+        cellphone: 'test_cellphone',
+        clinicalManagerName: 'test_clinical_manager_name',
+        financialManagerName: 'test_financial_manager_name',
+        addressId: 1,
+        createdAt: globalDate,
+        updatedAt: globalDate,
+        deletedAt: null
+      })
+    )
+
+    const SUTRequest = {
+      name: 'test_name',
+      email: 'test_email',
+      password: 'test_password',
+      category: 'test_category',
+      cnpj: 'test_cnpj',
+      phone: 'test_phone',
+      cellphone: 'test_cellphone',
+      clinicalManagerName: 'test_clinical_manager_name',
+      financialManagerName: 'test_financial_manager_name',
+      addressId: 1
+    }
+
+    const SUTResponse = await SUT.execute(SUTRequest)
+
+    const expectedResponse = {
+      type: 'EMAIL_ALREADY_EXISTS'
     }
 
     expect(SUTResponse).toEqual(expectedResponse)
