@@ -8,6 +8,7 @@ import {
 import {
   type CreatePartnerValidator,
   type FindOneAddressRepository,
+  type HashService,
   type CreatePartnerRepository
 } from '../../protocols'
 import { CreatePartnerImpl } from './CreatePartnerImpl'
@@ -53,6 +54,12 @@ const getSUTEnvironment = () => {
     }
   }
 
+  class HashServiceStub implements HashService {
+    async hash (_request: HashService.Request): HashService.Response {
+      return 'hash'
+    }
+  }
+
   class CreatePartnerRepositoryStub implements CreatePartnerRepository {
     async create (_request: CreatePartnerRepository.Request): CreatePartnerRepository.Response {
       return {
@@ -76,11 +83,13 @@ const getSUTEnvironment = () => {
 
   const createPartnerValidatorStub = new CreatePartnerValidatorStub()
   const findOneAddressRepositoryStub = new FindOneAddressRepositoryStub()
+  const hashServiceStub = new HashServiceStub()
   const createPartnerRepositoryStub = new CreatePartnerRepositoryStub()
 
   const SUT = new CreatePartnerImpl(
     createPartnerValidatorStub,
     findOneAddressRepositoryStub,
+    hashServiceStub,
     createPartnerRepositoryStub
   )
 
@@ -89,6 +98,7 @@ const getSUTEnvironment = () => {
 
     createPartnerValidatorStub,
     findOneAddressRepositoryStub,
+    hashServiceStub,
     createPartnerRepositoryStub
   }
 }
@@ -232,5 +242,41 @@ describe('CreatePartnerImpl', () => {
     }
 
     expect(SUTResponse).toEqual(expectedResponse)
+  })
+
+  it('should not use password without hash', async () => {
+    const { SUT, createPartnerRepositoryStub } = getSUTEnvironment()
+
+    const createSpy = jest.spyOn(createPartnerRepositoryStub, 'create')
+
+    const SUTRequest = {
+      name: 'test_name',
+      email: 'test_email',
+      password: 'test_password',
+      category: 'test_category',
+      cnpj: 'test_cnpj',
+      phone: 'test_phone',
+      cellphone: 'test_cellphone',
+      clinicalManagerName: 'test_clinical_manager_name',
+      financialManagerName: 'test_financial_manager_name',
+      addressId: 1
+    }
+
+    await SUT.execute(SUTRequest)
+
+    const expectedCall = {
+      name: 'test_name',
+      email: 'test_email',
+      password: 'hash',
+      category: 'test_category',
+      cnpj: 'test_cnpj',
+      phone: 'test_phone',
+      cellphone: 'test_cellphone',
+      clinicalManagerName: 'test_clinical_manager_name',
+      financialManagerName: 'test_financial_manager_name',
+      addressId: 1
+    }
+
+    expect(createSpy).toHaveBeenCalledWith(expectedCall)
   })
 })
