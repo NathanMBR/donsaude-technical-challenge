@@ -48,8 +48,10 @@ describe('UpdateAddressController', () => {
     const { SUT } = getSUTEnvironment()
 
     const SUTRequest = {
+      params: {
+        id: 1
+      },
       body: {
-        id: 1,
         postalCode: 'test_postal_code',
         street: 'test_street',
         number: 'test_number',
@@ -94,8 +96,10 @@ describe('UpdateAddressController', () => {
     )
 
     const SUTRequest = {
+      params: {
+        id: 1
+      },
       body: {
-        id: 1,
         postalCode: 'test_postal_code',
         street: 'test_street',
         number: 'test_number',
@@ -129,8 +133,10 @@ describe('UpdateAddressController', () => {
     )
 
     const SUTRequest = {
+      params: {
+        id: 1
+      },
       body: {
-        id: 1,
         postalCode: 'test_postal_code',
         street: 'test_street',
         number: 'test_number',
