@@ -5,13 +5,13 @@ import {
   jest
 } from '@jest/globals'
 
-import { type CreatePartner } from '../../../domain'
+import { type UpdatePartner } from '../../../domain'
 import { CreatePartnerController } from './CreatePartnerController'
 
 const globalDate = new Date()
 
 const getSUTEnvironment = () => {
-  class CreatePartnerStub implements CreatePartner {
+  class CreatePartnerStub implements UpdatePartner {
     async execute (_request: CreatePartner.Request): CreatePartner.Response {
       return {
         type: 'SUCCESS',

@@ -1,4 +1,4 @@
-import { type CreatePartner } from '../../../domain'
+import { type UpdatePartner } from '../../../domain'
 import {
   type CreatePartnerValidator,
   type FindOnePartnerByEmailRepository,
@@ -7,7 +7,7 @@ import {
   type CreatePartnerRepository
 } from '../../protocols'
 
-export class CreatePartnerImpl implements CreatePartner {
+export class CreatePartnerImpl implements UpdatePartner {
   constructor (
     private readonly createPartnerValidator: CreatePartnerValidator,
     private readonly findOnePartnerByEmailRepository: FindOnePartnerByEmailRepository,
