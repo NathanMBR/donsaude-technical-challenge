@@ -4,7 +4,8 @@ import {
   makeCreateAddressController,
   makeFindOneAddressController,
   makeFindManyAddressesController,
-  makeUpdateAddressController
+  makeUpdateAddressController,
+  makeDeleteAddressController
 } from '../../factories'
 import { expressRouteAdapter } from '../../adapters'
 
@@ -12,11 +13,13 @@ const createAddressController = makeCreateAddressController()
 const findOneAddressController = makeFindOneAddressController()
 const findManyAddressesController = makeFindManyAddressesController()
 const updateAddressController = makeUpdateAddressController()
+const deleteAddressController = makeDeleteAddressController()
 
 const createAddressRoute = expressRouteAdapter(createAddressController)
 const findOneAddressRoute = expressRouteAdapter(findOneAddressController)
 const findManyAddressesRoute = expressRouteAdapter(findManyAddressesController)
 const updateAddressRoute = expressRouteAdapter(updateAddressController)
+const deleteAddressRoute = expressRouteAdapter(deleteAddressController)
 
 const expressAddressRoutes = Router()
 
@@ -25,5 +28,6 @@ expressAddressRoutes.post('/', createAddressRoute)
 expressAddressRoutes.get('/:id', findOneAddressRoute)
 expressAddressRoutes.get('/', findManyAddressesRoute)
 expressAddressRoutes.put('/:id', updateAddressRoute)
+expressAddressRoutes.delete('/:id', deleteAddressRoute)
 
 export { expressAddressRoutes }
