@@ -1,5 +1,7 @@
-import { ZodPaginationValidator } from '../../../infra/validators/zod/validators/ZodPaginationValidator'
-import { PrismaAddressRepository } from '../../../infra'
+import {
+  ZodPaginationValidator,
+  PrismaAddressRepository
+} from '../../../infra'
 import { prisma } from '../../config'
 import { FindManyAddressesImpl } from '../../../data'
 import { FindManyAddressesController } from '../../../presentation'
