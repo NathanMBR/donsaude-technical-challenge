@@ -1,12 +1,11 @@
 import { type Controller } from '../../protocols'
 import { type CreatePartner } from '../../../domain'
 import { HttpResponseHelper } from '../../helpers'
-import { type HttpRequest } from '../../models'
 
 export class CreatePartnerController implements Controller {
   constructor (private readonly createPartner: CreatePartner) {}
 
-  async handle (request: HttpRequest): Controller.Response {
+  async handle (request: Controller.Request): Controller.Response {
     const { body } = request
 
     const createPartnerResponse = await this.createPartner.execute(body)
