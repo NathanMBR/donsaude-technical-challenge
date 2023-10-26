@@ -3,7 +3,8 @@ import { type PrismaClient } from '@prisma/client'
 import {
   type CreatePartnerRepository,
   type FindOnePartnerRepository,
-  type FindManyPartnersRepository
+  type FindManyPartnersRepository,
+  type CountManyPartnersRepository
 } from '../../../data'
 
 const columnsToSearch = [
@@ -20,7 +21,8 @@ const columnsToSearch = [
 export class PrismaPartnerRepository implements
   CreatePartnerRepository,
   FindOnePartnerRepository,
-  FindManyPartnersRepository
+  FindManyPartnersRepository,
+  CountManyPartnersRepository
 {
   constructor (
     private readonly prisma: PrismaClient
@@ -73,5 +75,27 @@ export class PrismaPartnerRepository implements
     })
 
     return partners
+  }
+
+  async countMany (request: CountManyPartnersRepository.Request): CountManyPartnersRepository.Response {
+    const { search } = request
+
+    const searchPattern = {
+      contains: search
+    }
+
+    const partnersCount = await this.prisma.partner.count({
+      where: {
+        OR: search
+          ? columnsToSearch.map(column => ({
+            [column]: searchPattern
+          }))
+          : undefined,
+
+        deletedAt: null
+      }
+    })
+
+    return partnersCount
   }
 }
