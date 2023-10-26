@@ -1,6 +1,7 @@
 import {
   ZodCreatePartnerValidator,
   PrismaAddressRepository,
+  BcryptjsHashService,
   PrismaPartnerRepository
 } from '../../../infra'
 import { prisma } from '../../config'
@@ -14,9 +15,12 @@ export const makeCreatePartnerController = () => {
   const findOneAddressRepository = new PrismaAddressRepository(prisma)
   const createPartnerRepository = new PrismaPartnerRepository(prisma)
 
+  const hashService = new BcryptjsHashService()
+
   const createPartner = new CreatePartnerImpl(
     createPartnerValidator,
     findOneAddressRepository,
+    hashService,
     createPartnerRepository
   )
 
