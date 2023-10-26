@@ -12,6 +12,10 @@
         "project": "./backend/tsconfig.eslint.json"
     },
     "rules": {
+      "object-curly-newline": ["error", {
+        "ImportDeclaration": { "multiline": true, "minProperties": 2 },
+        "ExportDeclaration": { "multiline": true, "minProperties": 2 }
+      }],
       "@typescript-eslint/no-namespace": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
       "@typescript-eslint/method-signature-style": "off",
