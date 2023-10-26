@@ -33,12 +33,14 @@ const findFirstSpy = jest.spyOn(prisma.partner, 'findFirst')
 const findUniqueSpy = jest.spyOn(prisma.partner, 'findUnique')
 const findManySpy = jest.spyOn(prisma.partner, 'findMany')
 const countSpy = jest.spyOn(prisma.partner, 'count')
+const updateSpy = jest.spyOn(prisma.partner, 'update')
 
 createSpy.mockImplementation(jest.fn(async () => getStubPartner()) as any)
 findFirstSpy.mockImplementation(jest.fn(async () => getStubPartner()) as any)
 findUniqueSpy.mockImplementation(jest.fn(async () => getStubPartner()) as any)
 findManySpy.mockImplementation(jest.fn(async () => [getStubPartner()]) as any)
 countSpy.mockImplementation(jest.fn(async () => 1) as any)
+updateSpy.mockImplementation(jest.fn(async () => getStubPartner()) as any)
 
 const getSUTEnvironment = () => {
   const SUT = new PrismaPartnerRepository(prisma)
@@ -273,5 +275,44 @@ describe('PrismaCountManyPartnersRepository', () => {
     const expectedResponse = 1
 
     expect(SUTResponse).toBe(expectedResponse)
+  })
+})
+
+describe('PrismaUpdatePartnerRepository', () => {
+  it('should successfully update a partner', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      id: 1,
+      name: 'test_name',
+      category: 'test_category',
+      cnpj: 'test_cnpj',
+      phone: 'test_phone',
+      cellphone: 'test_cellphone',
+      clinicalManagerName: 'test_clinical_manager_name',
+      financialManagerName: 'test_financial_manager_name',
+      addressId: 1
+    }
+
+    const SUTResponse = await SUT.update(SUTRequest)
+
+    const expectedResponse = {
+      id: 1,
+      name: 'test_name',
+      email: 'test_email',
+      password: 'test_password',
+      category: 'test_category',
+      cnpj: 'test_cnpj',
+      phone: 'test_phone',
+      cellphone: 'test_cellphone',
+      clinicalManagerName: 'test_clinical_manager_name',
+      financialManagerName: 'test_financial_manager_name',
+      addressId: 1,
+      createdAt: globalDate,
+      updatedAt: globalDate,
+      deletedAt: null
+    }
+
+    expect(SUTResponse).toEqual(expectedResponse)
   })
 })
