@@ -2,6 +2,7 @@ import { type PrismaClient } from '@prisma/client'
 
 import {
   type CreatePartnerRepository,
+  type FindOnePartnerByEmailRepository,
   type FindOnePartnerRepository,
   type FindManyPartnersRepository,
   type CountManyPartnersRepository
@@ -20,6 +21,7 @@ const columnsToSearch = [
 
 export class PrismaPartnerRepository implements
   CreatePartnerRepository,
+  FindOnePartnerByEmailRepository,
   FindOnePartnerRepository,
   FindManyPartnersRepository,
   CountManyPartnersRepository
@@ -31,6 +33,19 @@ export class PrismaPartnerRepository implements
   async create (request: CreatePartnerRepository.Request): CreatePartnerRepository.Response {
     const partner = await this.prisma.partner.create({
       data: request
+    })
+
+    return partner
+  }
+
+  async findOneByEmail (request: FindOnePartnerByEmailRepository.Request): FindOnePartnerByEmailRepository.Response {
+    const { email } = request
+
+    const partner = await this.prisma.partner.findFirst({
+      where: {
+        email,
+        deletedAt: null
+      }
     })
 
     return partner
