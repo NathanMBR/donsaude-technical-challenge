@@ -50,6 +50,9 @@ describe('UpdatePartnerController', () => {
     const { SUT } = getSUTEnvironment()
 
     const SUTRequest = {
+      params: {
+        id: 1
+      },
       body: {
         name: 'test_name',
         category: 'test_category',
@@ -97,6 +100,9 @@ describe('UpdatePartnerController', () => {
     )
 
     const SUTRequest = {
+      params: {
+        id: 1
+      },
       body: {
         name: 'test_name',
         category: 'test_category',
@@ -132,6 +138,9 @@ describe('UpdatePartnerController', () => {
     )
 
     const SUTRequest = {
+      params: {
+        id: 1
+      },
       body: {
         name: 'test_name',
         category: 'test_category',
@@ -167,6 +176,9 @@ describe('UpdatePartnerController', () => {
     )
 
     const SUTRequest = {
+      params: {
+        id: 1
+      },
       body: {
         name: 'test_name',
         category: 'test_category',
