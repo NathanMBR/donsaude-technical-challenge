@@ -1,3 +1,5 @@
+🇧🇷 [Clique aqui](./README_pt-br.md) para ler a versão em português
+
 # donsaude-technical-challenge
 
 Technical challenge for DonSaúde

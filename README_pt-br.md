@@ -1,3 +1,5 @@
+🇺🇸 [Click here](./README.md) to read the English version
+
 # donsaude-technical-challenge
 
 Desafio técnico da DonSaúde
