@@ -6,9 +6,12 @@ export class UpdateAddressController implements Controller {
   constructor (private readonly updateAddress: UpdateAddress) {}
 
   async handle (request: Controller.Request): Controller.Response {
-    const { body } = request
+    const { body, params: { id } } = request
 
-    const updateAddressResponse = await this.updateAddress.execute(body)
+    const updateAddressResponse = await this.updateAddress.execute({
+      id,
+      ...body
+    })
     if (updateAddressResponse.type === 'INVALID_REQUEST')
       return HttpResponseHelper.badRequest(updateAddressResponse.message)
 
