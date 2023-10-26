@@ -2,7 +2,6 @@ export type Partner = {
   id: number
   name: string
   email: string
-  password: string
   category: string
   cnpj: string
   phone: string
