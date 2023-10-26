@@ -27,7 +27,11 @@ export namespace UpdatePartner {
     type: 'ADDRESS_NOT_FOUND'
   }
 
-  export type Response = Promise<SuccessResponse | InvalidRequestResponse | AddressNotFoundResponse>
+  type PartnerNotFoundResponse = {
+    type: 'PARTNER_NOT_FOUND'
+  }
+
+  export type Response = Promise<SuccessResponse | InvalidRequestResponse | AddressNotFoundResponse | PartnerNotFoundResponse>
 }
 
 export interface UpdatePartner {
