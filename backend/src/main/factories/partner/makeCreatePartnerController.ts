@@ -13,15 +13,16 @@ export const makeCreatePartnerController = () => {
   const createPartnerValidator = new ZodCreatePartnerValidator()
 
   const findOneAddressRepository = new PrismaAddressRepository(prisma)
-  const createPartnerRepository = new PrismaPartnerRepository(prisma)
+  const createAndFindOneByEmailPartnerRepository = new PrismaPartnerRepository(prisma)
 
   const hashService = new BcryptjsHashService()
 
   const createPartner = new CreatePartnerImpl(
     createPartnerValidator,
+    createAndFindOneByEmailPartnerRepository,
     findOneAddressRepository,
     hashService,
-    createPartnerRepository
+    createAndFindOneByEmailPartnerRepository
   )
 
   const createPartnerController = new ErrorHandlerControllerDecorator(
