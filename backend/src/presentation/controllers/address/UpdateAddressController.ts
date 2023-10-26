@@ -9,9 +9,10 @@ export class UpdateAddressController implements Controller {
     const { body, params: { id } } = request
 
     const updateAddressResponse = await this.updateAddress.execute({
-      id,
-      ...body
+      ...body,
+      id
     })
+
     if (updateAddressResponse.type === 'INVALID_REQUEST')
       return HttpResponseHelper.badRequest(updateAddressResponse.message)
 
