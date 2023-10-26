@@ -29,8 +29,10 @@ const getStubPartner = () => ({
 })
 
 const createSpy = jest.spyOn(prisma.partner, 'create')
+const findOneSpy = jest.spyOn(prisma.partner, 'findUnique')
 
 createSpy.mockImplementation(jest.fn(async () => getStubPartner()) as any)
+findOneSpy.mockImplementation(jest.fn(async () => getStubPartner()) as any)
 
 const getSUTEnvironment = () => {
   const SUT = new PrismaPartnerRepository(prisma)
@@ -75,6 +77,53 @@ describe('PrismaCreatePartnerRepository', () => {
       updatedAt: globalDate,
       deletedAt: null
     }
+
+    expect(SUTResponse).toEqual(expectedResponse)
+  })
+})
+
+describe('PrismaFindOnePartnerRepository', () => {
+  it('should successfully find one partner', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      id: 1
+    }
+
+    const SUTResponse = await SUT.findOne(SUTRequest)
+
+    const expectedResponse = {
+      id: 1,
+      name: 'test_name',
+      email: 'test_email',
+      password: 'test_password',
+      category: 'test_category',
+      cnpj: 'test_cnpj',
+      phone: 'test_phone',
+      cellphone: 'test_cellphone',
+      clinicalManagerName: 'test_clinical_manager_name',
+      financialManagerName: 'test_financial_manager_name',
+      addressId: 1,
+      createdAt: globalDate,
+      updatedAt: globalDate,
+      deletedAt: null
+    }
+
+    expect(SUTResponse).toEqual(expectedResponse)
+  })
+
+  it('should return null if search returns null', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    jest.spyOn(prisma.partner, 'findUnique').mockImplementationOnce(jest.fn(async () => null) as any)
+
+    const SUTRequest = {
+      id: 1
+    }
+
+    const SUTResponse = await SUT.findOne(SUTRequest)
+
+    const expectedResponse = null
 
     expect(SUTResponse).toEqual(expectedResponse)
   })
