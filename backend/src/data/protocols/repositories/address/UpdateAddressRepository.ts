@@ -16,5 +16,5 @@ export namespace UpdateAddressRepository {
 }
 
 export interface UpdateAddressRepository {
-  create(request: UpdateAddressRepository.Request): UpdateAddressRepository.Response
+  update(request: UpdateAddressRepository.Request): UpdateAddressRepository.Response
 }
