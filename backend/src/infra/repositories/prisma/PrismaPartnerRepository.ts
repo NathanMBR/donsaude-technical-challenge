@@ -6,7 +6,8 @@ import {
   type FindOnePartnerRepository,
   type FindManyPartnersRepository,
   type CountManyPartnersRepository,
-  type UpdatePartnerRepository
+  type UpdatePartnerRepository,
+  type DeletePartnerRepository
 } from '../../../data'
 
 const columnsToSearch = [
@@ -26,7 +27,8 @@ export class PrismaPartnerRepository implements
   FindOnePartnerRepository,
   FindManyPartnersRepository,
   CountManyPartnersRepository,
-  UpdatePartnerRepository
+  UpdatePartnerRepository,
+  DeletePartnerRepository
 {
   constructor (
     private readonly prisma: PrismaClient
@@ -131,5 +133,19 @@ export class PrismaPartnerRepository implements
     })
 
     return partner
+  }
+
+  async delete (request: DeletePartnerRepository.Request): DeletePartnerRepository.Response {
+    const { id } = request
+
+    await this.prisma.partner.update({
+      where: {
+        id
+      },
+
+      data: {
+        deletedAt: new Date()
+      }
+    })
   }
 }
