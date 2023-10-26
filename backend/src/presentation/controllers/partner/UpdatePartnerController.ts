@@ -6,9 +6,13 @@ export class UpdatePartnerController implements Controller {
   constructor (private readonly updatePartner: UpdatePartner) {}
 
   async handle (request: Controller.Request): Controller.Response {
-    const { body } = request
+    const { body, params: { id } } = request
 
-    const updatePartnerResponse = await this.updatePartner.execute(body)
+    const updatePartnerResponse = await this.updatePartner.execute({
+      ...body,
+      id
+    })
+
     if (updatePartnerResponse.type === 'INVALID_REQUEST')
       return HttpResponseHelper.badRequest(updatePartnerResponse.message)
 
