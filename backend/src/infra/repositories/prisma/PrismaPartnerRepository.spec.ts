@@ -29,10 +29,12 @@ const getStubPartner = () => ({
 })
 
 const createSpy = jest.spyOn(prisma.partner, 'create')
-const findOneSpy = jest.spyOn(prisma.partner, 'findUnique')
+const findUniqueSpy = jest.spyOn(prisma.partner, 'findUnique')
+const findManySpy = jest.spyOn(prisma.partner, 'findMany')
 
 createSpy.mockImplementation(jest.fn(async () => getStubPartner()) as any)
-findOneSpy.mockImplementation(jest.fn(async () => getStubPartner()) as any)
+findUniqueSpy.mockImplementation(jest.fn(async () => getStubPartner()) as any)
+findManySpy.mockImplementation(jest.fn(async () => [getStubPartner()]) as any)
 
 const getSUTEnvironment = () => {
   const SUT = new PrismaPartnerRepository(prisma)
@@ -124,6 +126,70 @@ describe('PrismaFindOnePartnerRepository', () => {
     const SUTResponse = await SUT.findOne(SUTRequest)
 
     const expectedResponse = null
+
+    expect(SUTResponse).toEqual(expectedResponse)
+  })
+})
+
+describe('PrismaFindManyPartnersRepository', () => {
+  it('should successfully find many partners', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      take: 1,
+      skip: 1,
+      search: 'test_search'
+    }
+
+    const SUTResponse = await SUT.findMany(SUTRequest)
+
+    const expectedResponse = [{
+      id: 1,
+      name: 'test_name',
+      email: 'test_email',
+      password: 'test_password',
+      category: 'test_category',
+      cnpj: 'test_cnpj',
+      phone: 'test_phone',
+      cellphone: 'test_cellphone',
+      clinicalManagerName: 'test_clinical_manager_name',
+      financialManagerName: 'test_financial_manager_name',
+      addressId: 1,
+      createdAt: globalDate,
+      updatedAt: globalDate,
+      deletedAt: null
+    }]
+
+    expect(SUTResponse).toEqual(expectedResponse)
+  })
+
+  it('should successfully find many partners without optional parameters', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      take: 1,
+      skip: 1
+      // search: 'test_search'
+    }
+
+    const SUTResponse = await SUT.findMany(SUTRequest)
+
+    const expectedResponse = [{
+      id: 1,
+      name: 'test_name',
+      email: 'test_email',
+      password: 'test_password',
+      category: 'test_category',
+      cnpj: 'test_cnpj',
+      phone: 'test_phone',
+      cellphone: 'test_cellphone',
+      clinicalManagerName: 'test_clinical_manager_name',
+      financialManagerName: 'test_financial_manager_name',
+      addressId: 1,
+      createdAt: globalDate,
+      updatedAt: globalDate,
+      deletedAt: null
+    }]
 
     expect(SUTResponse).toEqual(expectedResponse)
   })
