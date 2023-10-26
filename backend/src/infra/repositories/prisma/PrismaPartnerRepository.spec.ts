@@ -11,6 +11,8 @@ import { PrismaPartnerRepository } from './PrismaPartnerRepository'
 const prisma = new PrismaClient()
 const globalDate = new Date()
 
+jest.useFakeTimers().setSystemTime(globalDate)
+
 const getStubPartner = () => ({
   id: 1,
   name: 'test_name',
@@ -314,5 +316,28 @@ describe('PrismaUpdatePartnerRepository', () => {
     }
 
     expect(SUTResponse).toEqual(expectedResponse)
+  })
+})
+
+describe('PrismaDeletePartnerRepository', () => {
+  it('should successfully delete a partner', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      id: 1
+    }
+
+    await SUT.delete(SUTRequest)
+
+    const expectedCall = {
+      where: {
+        id: SUTRequest.id
+      },
+      data: {
+        deletedAt: globalDate
+      }
+    }
+
+    expect(updateSpy).toHaveBeenCalledWith(expectedCall)
   })
 })
