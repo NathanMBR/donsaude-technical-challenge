@@ -101,35 +101,7 @@ describe('CreateAddressImpl', () => {
     expect(SUTResponse).toEqual(expectedResponse)
   })
 
-  it('should return error if validation returns INVALID_PROPERTY_TYPE', async () => {
-    const { SUT, createAddressValidatorStub } = getSUTEnvironment()
-
-    jest.spyOn(createAddressValidatorStub, 'validate').mockReturnValueOnce({
-      success: false,
-      errorMessage: 'Test error'
-    })
-
-    const SUTRequest = {
-      postalCode: 'test_postal_code',
-      street: 'test_street',
-      number: 'test_number',
-      neighborhood: 'test_neighborhood',
-      complement: 'test_complement',
-      city: 'test_city',
-      state: 'test_state'
-    }
-
-    const SUTResponse = await SUT.execute(SUTRequest)
-
-    const expectedResponse = {
-      type: 'INVALID_REQUEST',
-      message: 'Test error'
-    }
-
-    expect(SUTResponse).toEqual(expectedResponse)
-  })
-
-  it('should return error if validation returns INVALID_POSTAL_CODE_FORMAT', async () => {
+  it('should return INVALID_REQUEST if validation returns error', async () => {
     const { SUT, createAddressValidatorStub } = getSUTEnvironment()
 
     jest.spyOn(createAddressValidatorStub, 'validate').mockReturnValueOnce({
