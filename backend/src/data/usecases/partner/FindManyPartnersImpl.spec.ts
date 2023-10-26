@@ -92,7 +92,6 @@ describe('FindManyPartnersImpl', () => {
         id: 1,
         name: 'test_name',
         email: 'test_email',
-        password: 'test_password',
         category: 'test_category',
         cnpj: 'test_cnpj',
         phone: 'test_phone',
@@ -107,5 +106,20 @@ describe('FindManyPartnersImpl', () => {
     }
 
     expect(SUTResponse).toEqual(expectedResponse)
+  })
+
+  it('should not return password', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      page: 1,
+      quantity: 100
+    }
+
+    const SUTResponse = await SUT.execute(SUTRequest)
+
+    const doesAnyPartnerHavePassword = SUTResponse.data.some(partner => 'password' in partner)
+
+    expect(doesAnyPartnerHavePassword).toBe(false)
   })
 })
