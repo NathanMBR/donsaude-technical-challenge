@@ -76,7 +76,6 @@ describe('FindOnePartnerImpl', () => {
         id: 1,
         name: 'test_name',
         email: 'test_email',
-        password: 'test_password',
         category: 'test_category',
         cnpj: 'test_cnpj',
         phone: 'test_phone',
@@ -91,6 +90,18 @@ describe('FindOnePartnerImpl', () => {
     }
 
     expect(SUTResponse).toEqual(expectedResponse)
+  })
+
+  it('should not return password', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      id: 1
+    }
+
+    const SUTResponse = await SUT.execute(SUTRequest)
+
+    expect(SUTResponse).not.toHaveProperty('password')
   })
 
   it('should return INVALID_REQUEST if id validation returns error', async () => {
