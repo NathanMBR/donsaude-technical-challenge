@@ -24,11 +24,15 @@ export namespace CreatePartner {
     message?: string
   }
 
+  type EmailAlreadyExistsResponse = {
+    type: 'EMAIL_ALREADY_EXISTS'
+  }
+
   type AddressNotFoundResponse = {
     type: 'ADDRESS_NOT_FOUND'
   }
 
-  export type Response = Promise<SuccessResponse | InvalidRequestResponse | AddressNotFoundResponse>
+  export type Response = Promise<SuccessResponse | InvalidRequestResponse | EmailAlreadyExistsResponse | AddressNotFoundResponse>
 }
 
 export interface CreatePartner {
