@@ -11,6 +11,8 @@ import { PrismaAddressRepository } from './PrismaAddressRepository'
 const prisma = new PrismaClient()
 const globalDate = new Date()
 
+jest.useFakeTimers().setSystemTime(globalDate)
+
 const getStubAddress = () => ({
   id: 1,
   postalCode: 'test_postal_code',
@@ -243,5 +245,28 @@ describe('PrismaUpdateAddressRepository', () => {
     }
 
     expect(SUTResponse).toEqual(expectedResponse)
+  })
+})
+
+describe('PrismaDeleteAddressRepository', () => {
+  it('should successfully delete an address', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      id: 1
+    }
+
+    await SUT.delete(SUTRequest)
+
+    const expectedCall = {
+      where: {
+        id: SUTRequest.id
+      },
+      data: {
+        deletedAt: globalDate
+      }
+    }
+
+    expect(updateSpy).toHaveBeenCalledWith(expectedCall)
   })
 })
