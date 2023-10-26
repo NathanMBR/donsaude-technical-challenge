@@ -5,7 +5,8 @@ import {
   type FindOnePartnerByEmailRepository,
   type FindOnePartnerRepository,
   type FindManyPartnersRepository,
-  type CountManyPartnersRepository
+  type CountManyPartnersRepository,
+  type UpdatePartnerRepository
 } from '../../../data'
 
 const columnsToSearch = [
@@ -24,7 +25,8 @@ export class PrismaPartnerRepository implements
   FindOnePartnerByEmailRepository,
   FindOnePartnerRepository,
   FindManyPartnersRepository,
-  CountManyPartnersRepository
+  CountManyPartnersRepository,
+  UpdatePartnerRepository
 {
   constructor (
     private readonly prisma: PrismaClient
@@ -112,5 +114,22 @@ export class PrismaPartnerRepository implements
     })
 
     return partnersCount
+  }
+
+  async update (request: UpdatePartnerRepository.Request): UpdatePartnerRepository.Response {
+    const {
+      id,
+      ...data
+    } = request
+
+    const partner = await this.prisma.partner.update({
+      where: {
+        id
+      },
+
+      data
+    })
+
+    return partner
   }
 }
