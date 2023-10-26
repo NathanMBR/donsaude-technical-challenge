@@ -29,14 +29,14 @@ export class CreatePartnerImpl implements CreatePartner {
       }
 
     const hashedPassword = await this.hashService.hash({ text: validationResult.data.password })
-    const partner = await this.createPartnerRepository.create({
+    const { password, ...partnerWithoutPassword } = await this.createPartnerRepository.create({
       ...validationResult.data,
       password: hashedPassword
     })
 
     return {
       type: 'SUCCESS',
-      data: partner
+      data: partnerWithoutPassword
     }
   }
 }
