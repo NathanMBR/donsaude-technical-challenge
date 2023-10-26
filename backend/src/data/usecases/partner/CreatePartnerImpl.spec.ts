@@ -128,7 +128,6 @@ describe('CreatePartnerImpl', () => {
         id: 1,
         name: 'test_name',
         email: 'test_email',
-        password: 'test_password',
         category: 'test_category',
         cnpj: 'test_cnpj',
         phone: 'test_phone',
@@ -143,6 +142,27 @@ describe('CreatePartnerImpl', () => {
     }
 
     expect(SUTResponse).toEqual(expectedResponse)
+  })
+
+  it('should not return password', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      name: 'test_name',
+      email: 'test_email',
+      password: 'test_password',
+      category: 'test_category',
+      cnpj: 'test_cnpj',
+      phone: 'test_phone',
+      cellphone: 'test_cellphone',
+      clinicalManagerName: 'test_clinical_manager_name',
+      financialManagerName: 'test_financial_manager_name',
+      addressId: 1
+    }
+
+    const SUTResponse = await SUT.execute(SUTRequest)
+
+    expect(SUTResponse).not.toHaveProperty('password')
   })
 
   it('should return INVALID_REQUEST if validation returns error', async () => {
