@@ -4,7 +4,7 @@ import {
 } from '../../../infra'
 import { prisma } from '../../config'
 import { FindManyPartnersImpl } from '../../../data'
-import { FindManyPartnersController } from '../../../presentation/controllers/partner/FindManyPartnersController'
+import { FindManyPartnersController } from '../../../presentation'
 import { ErrorHandlerControllerDecorator } from '../../decorators'
 
 export const makeFindManyPartnersController = () => {
