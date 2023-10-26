@@ -126,6 +126,43 @@ describe('CreatePartnerController', () => {
     expect(SUTResponse).toEqual(expectedResponse)
   })
 
+  it('should return 400 if usecase returns EMAIL_ALREADY_EXISTS', async () => {
+    const { SUT, createPartnerStub } = getSUTEnvironment()
+
+    jest.spyOn(createPartnerStub, 'execute').mockReturnValueOnce(
+      Promise.resolve({
+        type: 'EMAIL_ALREADY_EXISTS'
+      })
+    )
+
+    const SUTRequest = {
+      body: {
+        name: 'test_name',
+        email: 'test_email',
+        password: 'test_password',
+        category: 'test_category',
+        cnpj: 'test_cnpj',
+        phone: 'test_phone',
+        cellphone: 'test_cellphone',
+        clinicalManagerName: 'test_clinical_manager_name',
+        financialManagerName: 'test_financial_manager_name',
+        addressId: 1
+      }
+    }
+
+    const SUTResponse = await SUT.handle(SUTRequest)
+
+    const expectedResponse = {
+      statusCode: 400,
+      body: {
+        error: 'Bad Request',
+        message: 'Email already exists'
+      }
+    }
+
+    expect(SUTResponse).toEqual(expectedResponse)
+  })
+
   it('should return 404 if usecase returns ADDRESS_NOT_FOUND', async () => {
     const { SUT, createPartnerStub } = getSUTEnvironment()
 
