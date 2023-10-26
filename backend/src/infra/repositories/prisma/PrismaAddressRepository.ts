@@ -5,7 +5,8 @@ import {
   type FindOneAddressRepository,
   type FindManyAddressesRepository,
   type CountManyAddressesRepository,
-  type UpdateAddressRepository
+  type UpdateAddressRepository,
+  type DeleteAddressRepository
 } from '../../../data'
 
 const columnsToSearch = [
@@ -23,7 +24,8 @@ export class PrismaAddressRepository implements
   FindOneAddressRepository,
   FindManyAddressesRepository,
   CountManyAddressesRepository,
-  UpdateAddressRepository
+  UpdateAddressRepository,
+  DeleteAddressRepository
 {
   constructor (
     private readonly prisma: PrismaClient
@@ -112,5 +114,19 @@ export class PrismaAddressRepository implements
     })
 
     return address
+  }
+
+  async delete (request: DeleteAddressRepository.Request): DeleteAddressRepository.Response {
+    const { id } = request
+
+    await this.prisma.address.update({
+      where: {
+        id
+      },
+
+      data: {
+        deletedAt: new Date()
+      }
+    })
   }
 }
