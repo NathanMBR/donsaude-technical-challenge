@@ -61,7 +61,7 @@ const getSUTEnvironment = () => {
   }
 
   class UpdateAddressRepositoryStub implements UpdateAddressRepository {
-    async create (_request: UpdateAddressRepository.Request): UpdateAddressRepository.Response {
+    async update (_request: UpdateAddressRepository.Request): UpdateAddressRepository.Response {
       return {
         id: 1,
         postalCode: 'test_postal_code',
