@@ -4,7 +4,8 @@ import {
   type CreateAddressRepository,
   type FindOneAddressRepository,
   type FindManyAddressesRepository,
-  type CountManyAddressesRepository
+  type CountManyAddressesRepository,
+  type UpdateAddressRepository
 } from '../../../data'
 
 const columnsToSearch = [
@@ -21,7 +22,8 @@ export class PrismaAddressRepository implements
   CreateAddressRepository,
   FindOneAddressRepository,
   FindManyAddressesRepository,
-  CountManyAddressesRepository
+  CountManyAddressesRepository,
+  UpdateAddressRepository
 {
   constructor (
     private readonly prisma: PrismaClient
@@ -96,5 +98,19 @@ export class PrismaAddressRepository implements
     })
 
     return addressesCount
+  }
+
+  async update (request: UpdateAddressRepository.Request): UpdateAddressRepository.Response {
+    const { id, ...data } = request
+
+    const address = await this.prisma.address.update({
+      where: {
+        id
+      },
+
+      data
+    })
+
+    return address
   }
 }
