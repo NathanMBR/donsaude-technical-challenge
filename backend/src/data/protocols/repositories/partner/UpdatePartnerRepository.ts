@@ -2,6 +2,7 @@ import { type RepositoryPartner } from '../../../models'
 
 export namespace UpdatePartnerRepository {
   export type Request = {
+    id: number
     name: string
     category: string
     cnpj: string
