@@ -27,9 +27,11 @@ export class FindOnePartnerImpl implements FindOnePartner {
         type: 'NOT_FOUND'
       }
 
+    const { password, ...partnerWithoutPassword } = partner
+
     return {
       type: 'SUCCESS',
-      data: partner
+      data: partnerWithoutPassword
     }
   }
 }
