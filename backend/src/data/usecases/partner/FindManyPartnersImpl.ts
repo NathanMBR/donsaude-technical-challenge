@@ -32,11 +32,13 @@ export class FindManyPartnersImpl implements FindManyPartners {
       this.countManyPartnersRepository.countMany({ search: paginationParams.search })
     ])
 
+    const partnersWithoutPassword = partners.map(({ password, ...partnerWithoutPassword }) => partnerWithoutPassword)
+
     const paginatedPartners = getRepositoryPaginationResponse({
       take: searchParams.take,
       skip: searchParams.skip,
       count: partnersCount,
-      data: partners
+      data: partnersWithoutPassword
     })
 
     return paginatedPartners
