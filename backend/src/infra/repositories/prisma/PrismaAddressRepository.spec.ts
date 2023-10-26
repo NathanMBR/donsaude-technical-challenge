@@ -29,11 +29,13 @@ const createSpy = jest.spyOn(prisma.address, 'create')
 const findUniqueSpy = jest.spyOn(prisma.address, 'findUnique')
 const findManySpy = jest.spyOn(prisma.address, 'findMany')
 const countSpy = jest.spyOn(prisma.address, 'count')
+const updateSpy = jest.spyOn(prisma.address, 'update')
 
 createSpy.mockImplementation(jest.fn(async () => getStubAddress()) as any)
 findUniqueSpy.mockImplementation(jest.fn(async () => getStubAddress()) as any)
 findManySpy.mockImplementation(jest.fn(async () => [getStubAddress()]) as any)
 countSpy.mockImplementation(jest.fn(async () => 1) as any)
+updateSpy.mockImplementation(jest.fn(async () => getStubAddress()) as any)
 
 const getSUTEnvironment = () => {
   const SUT = new PrismaAddressRepository(prisma)
@@ -206,5 +208,40 @@ describe('PrismaCountManyAddressesRepository', () => {
     const expectedResponse = 1
 
     expect(SUTResponse).toBe(expectedResponse)
+  })
+})
+
+describe('PrismaUpdateAddressRepository', () => {
+  it('should successfully update an address', async () => {
+    const { SUT } = getSUTEnvironment()
+
+    const SUTRequest = {
+      id: 1,
+      postalCode: 'test_postal_code',
+      street: 'test_street',
+      number: 'test_number',
+      neighborhood: 'test_neighborhood',
+      complement: 'test_complement',
+      city: 'test_city',
+      state: 'test_state'
+    }
+
+    const SUTResponse = await SUT.update(SUTRequest)
+
+    const expectedResponse = {
+      id: 1,
+      postalCode: 'test_postal_code',
+      street: 'test_street',
+      number: 'test_number',
+      neighborhood: 'test_neighborhood',
+      complement: 'test_complement',
+      city: 'test_city',
+      state: 'test_state',
+      createdAt: globalDate,
+      updatedAt: globalDate,
+      deletedAt: null
+    }
+
+    expect(SUTResponse).toEqual(expectedResponse)
   })
 })
