@@ -2,6 +2,7 @@ import { type Partner } from '../../models'
 
 export namespace UpdatePartner {
   export type Request = {
+    id: number
     name: string
     category: string
     cnpj: string
@@ -22,15 +23,11 @@ export namespace UpdatePartner {
     message?: string
   }
 
-  type EmailAlreadyExistsResponse = {
-    type: 'EMAIL_ALREADY_EXISTS'
-  }
-
   type AddressNotFoundResponse = {
     type: 'ADDRESS_NOT_FOUND'
   }
 
-  export type Response = Promise<SuccessResponse | InvalidRequestResponse | EmailAlreadyExistsResponse | AddressNotFoundResponse>
+  export type Response = Promise<SuccessResponse | InvalidRequestResponse | AddressNotFoundResponse>
 }
 
 export interface UpdatePartner {
