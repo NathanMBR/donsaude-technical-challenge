@@ -1,5 +1,4 @@
-export type Partner = {
-  id: number
+export type CreatePartner = {
   name: string
   email: string
   category: string
@@ -9,7 +8,13 @@ export type Partner = {
   clinicalManagerName: string
   financialManagerName: string
   addressId: number
+}
+
+export type CreatePartnerPartial = Omit<CreatePartner, "addressId">
+
+export type Partner = {
+  id: number
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
-}
+} & CreatePartner
