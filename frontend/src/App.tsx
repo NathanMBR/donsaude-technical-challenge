@@ -1,8 +1,16 @@
+import { Navbar, Header } from "./components"
+import { NewPartner } from "./components"
+
 function App() {
   return (
-    <>
-      <h1>Hello world</h1>
-    </>
+    <div className="flex h-screen w-screen">
+      <Navbar />
+      <div className="w-full">
+        <Header />
+
+        <NewPartner />
+      </div>
+    </div>
   )
 }
 
