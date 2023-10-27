@@ -34,3 +34,18 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
+  client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: 'no'
+    environment:
+      - VITE_APP_API_URL=http://api
+    volumes:
+      - ./frontend:/home/node/app
+    ports:
+      - 5173:5173
+    depends_on:
+      db:
+        condition: service_healthy
