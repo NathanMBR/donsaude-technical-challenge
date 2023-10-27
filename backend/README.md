@@ -2,39 +2,6 @@
 
 This folder contains the code for the Backend side of the challenge.
 
-## Setup
-This section contains instructions on how to run this codebase.
-
-### Running with Docker
-#### Requirements
-- Node.js
-- npm
-- Docker
-- Docker Compose
-
-#### Steps
-1. Access the backend folder (`donsaude-technical-challenge/backend`)
-2. Install packages with `npm ci`
-3. Generate Prisma types with `npx prisma generate`
-4. Go back to the project root folder (`donsaude-technical-challenge`)
-5. Start the containers with `docker compose up` (or `docker-compose up` for some cases)
-6. Wait until the host address is exhibited in the console
-
-### Running without Docker
-#### Requirements
-- Node.js
-- npm
-- An active PostgreSQL instance
-
-#### Steps
-1. Access the backend folder (`donsaude-technical-challenge/backend`)
-2. Install packages with `npm ci`
-3. Generate Prisma types with `npx prisma generate`
-4. Create a `.env` file in the backend folder (see the environment variables below)
-5. Run Prisma migrations with `npx prisma migrate deploy`
-6. Build the code with `npm run build`
-7. Start the server with `npm run start`
-
 ## Documentation
 The API documentation can be read [clicking here](./DOCS.md).
 
@@ -69,6 +36,3 @@ These are the used technologies and its reasons:
 - Jest (Quality assurance and bug prevention)
 - Docker (Easy environment setup)
 
-## Did ChatGPT write this file?
-
-No, he didn't write it. Besides programming, one of my passions is writing. I admit that my English isn't perfect and that my writing seems very formal or robotic, but that's just how I write formally. I only used it along with Google Translator to help me correct the English version, but the Portuguese version was 100% written by me.

@@ -2,39 +2,6 @@
 
 Essa pasta contém o código backend do desafio.
 
-## Configuração
-Essa seção contém instruções sobre como rodar o backend.
-
-### Rodando com o Docker
-#### Requisitos
-- Node.js
-- npm
-- Docker
-- Docker Compose
-
-#### Passo-a-passo
-1. Acessar a pasta do backend (`donsaude-technical-challenge/backend`)
-2. Instalar os pacotes com `npm ci`
-3. Gerar a tipagem do Prisma com `npx prisma generate`
-4. Voltar para a pasta raíz do projeto (`donsaude-technical-challenge`)
-5. Subir os contâineres com `docker compose up` (ou `docker-compose up` pra alguns casos)
-6. Esperar até que o endereço do host seja exibido no console
-
-### Rodando sem o Docker
-#### Requisitos
-- Node.js
-- npm
-- Uma instância ativa do PostgreSQL
-
-#### Passo-a-passo
-1. Acessar a pasta do backend (`donsaude-technical-challenge/backend`)
-2. Instalar os pacotes com `npm ci`
-3. Gerar a tipagem do Prisma com `npx prisma generate`
-4. Criar um arquivo `.env` na pasta do backend (veja as variáveis de ambiente abaixo)
-5. Rodar as migrations do Prisma com `npx prisma migrate deploy`
-6. Compilar o código com `npm run build`
-7. Iniciar o servidor com `npm run start`
-
 ## Documentação
 A documentação da API pode ser lida [clicando aqui](./DOCS_pt-br.md).
 
@@ -68,7 +35,3 @@ Essas são as tecnologias utilizadas e seus motivos:
 - Eslint (Manutenção e padronização da base de código)
 - Jest (Garantia de qualidade e prevenção de bugs)
 - Docker (Fácil configuração do ambiente)
-
-## O ChatGPT escreveu esse arquivo?
-
-Não, ele não escreveu. Além de programar, uma das minhas paixões é a escrita. Admito que meu inglês não é perfeito e que minha escrita parece muito formal ou robótica, mas é assim mesmo que eu escrevo de um jeito formal. O máximo que eu fiz foi utilizar ele e o Google Translator para me ajudar na correção da versão em inglês, mas a versão em português foi 100% escrita por mim.
