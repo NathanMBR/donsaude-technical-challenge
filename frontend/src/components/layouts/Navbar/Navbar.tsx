@@ -1,3 +1,5 @@
+import { IconContext } from "@phosphor-icons/react"
+
 import { pagesList } from "../../../assets"
 
 export const Navbar = () => {
@@ -12,6 +14,7 @@ export const Navbar = () => {
       </div>
 
       <ul className="flex flex-col gap-3 mt-14 grow">
+      <IconContext.Provider value={{ size: 20 }}>
         {
           pagesList.map(page => (
             <li key={page.title}>
@@ -22,6 +25,7 @@ export const Navbar = () => {
             </li>
           ))
         }
+      </IconContext.Provider>
       </ul>
 
       <div className="w-full px-1 py-2 flex gap-2 bg-layout-button-hover-background text-typography-dimmed rounded-full">
