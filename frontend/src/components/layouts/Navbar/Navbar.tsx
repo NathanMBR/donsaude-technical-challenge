@@ -5,10 +5,8 @@ import {
   Logo,
   Logotype
 } from "../../../assets"
-import {
-  PrimaryButton,
-  SecondaryButton
-} from ".."
+import { NavbarItemPrimary } from "./NavbarItemPrimary"
+import { NavbarItemSecondary } from "./NavbarItemSecondary"
 
 export const Navbar = () => {
   return (
@@ -24,14 +22,14 @@ export const Navbar = () => {
             <li key={page.title}>
               {
                 page.isActive
-                  ? (<PrimaryButton>
+                  ? (<NavbarItemPrimary>
                     <div>{page.icon}</div>
                     <span>{page.title}</span>
-                  </PrimaryButton>)
-                  : (<SecondaryButton>
+                  </NavbarItemPrimary>)
+                  : (<NavbarItemSecondary>
                     <div>{page.icon}</div>
                     <span>{page.title}</span>
-                  </SecondaryButton>)
+                  </NavbarItemSecondary>)
               }
             </li>
           ))
