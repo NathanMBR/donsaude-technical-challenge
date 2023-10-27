@@ -1,4 +1,3 @@
-import { IconContext } from "@phosphor-icons/react"
 import { pagesList } from "../../../assets"
 
 export const Navbar = () => {
@@ -17,9 +16,7 @@ export const Navbar = () => {
           pagesList.map(page => (
             <li key={page.title}>
               <button className={getButtonStyle(page.isActive)}>
-                <IconContext.Provider value={{ size: 20 }}>
-                  {page.icon}
-                </IconContext.Provider>
+                <div>{page.icon}</div>
                 <span>{page.title}</span>
               </button>
             </li>
