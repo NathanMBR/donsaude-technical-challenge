@@ -10,9 +10,9 @@ import {
 const NewServiceButton = () => {
   return (
     <button className="px-4 py-2 flex items-center gap-3 bg-primary-light hover:text-layout-button-hover-text transition-colors duration-200 text-primary rounded-2xl font-semibold text-xs">
-      <div>
+      <IconContext.Provider value={{ size: 20 }}>
         <PlusCircle />
-      </div>
+      </IconContext.Provider>
       <span>Novo atendimento</span>
     </button>
   )
@@ -31,12 +31,12 @@ export const Header = () => {
         </div>
       </div>
       <div className="flex gap-4">
-      <IconContext.Provider value={{ size: 16 }}>
-        <div className="mt-2 ml-2"><Star /></div>
-        <div className="mt-2 ml-2"><BellSimple /></div>
-        <div className="h-full w-px bg-form-border"></div>
-        <div className="mt-2 ml-2 bg-primary-light"><User /></div>
-      </IconContext.Provider>
+        <IconContext.Provider value={{ size: 16 }}>
+          <div className="mt-2 ml-2"><Star /></div>
+          <div className="mt-2 ml-2"><BellSimple /></div>
+          <div className="h-full w-px bg-form-border"></div>
+          <div className="mt-2 ml-2 bg-primary-light"><User /></div>
+        </IconContext.Provider>
       </div>
     </header>
   )
