@@ -40,8 +40,6 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     restart: 'no'
-    environment:
-      - VITE_APP_API_URL=http://api
     volumes:
       - ./frontend:/home/node/app
     ports:
