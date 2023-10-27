@@ -1,4 +1,4 @@
-import { Content } from "../.."
+import { Content } from "../../layouts"
 
 const Header = () => (
   <div className="flex gap-1 items-center px-12 pt-8 pb-4">
