@@ -17,7 +17,7 @@ const Section = () => (
         </div>
         <div id="step 2" className="px-3 py-2 flex gap-1 rounded-full grow items-center justify-center">
           <span className="font-medium text-[8px] w-3 h-3 bg-form-border rounded-full text-form-label text-center">2</span>
-          <span className="font-medium text-[10px] text-form-field">Informações</span>
+          <span className="font-medium text-[10px] text-form-field">Endereços</span>
         </div>
       </div>
       <form action="" className="pt-6 pb-9">
