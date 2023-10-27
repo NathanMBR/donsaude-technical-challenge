@@ -1,8 +1,6 @@
-import { PropsWithChildren } from "react";
+import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
-interface SecondaryButtonProps {
-  onClick?: () => void
-}
+interface SecondaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const SecondaryButton = ({ children, onClick }: PropsWithChildren<SecondaryButtonProps>) => (
   <button

@@ -1,8 +1,6 @@
-import { PropsWithChildren } from "react";
+import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
-interface PrimaryButtonProps {
-  onClick?: () => void
-}
+interface PrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export const PrimaryButton = ({ children, onClick }: PropsWithChildren<PrimaryButtonProps>) => (
   <button
