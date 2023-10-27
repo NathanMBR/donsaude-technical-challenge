@@ -1,4 +1,5 @@
 export * from './Content'
 export * from './Header'
 export * from './Navbar'
+export * from './PrimaryButton'
 export * from './SecondaryButton'
