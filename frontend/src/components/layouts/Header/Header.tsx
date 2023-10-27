@@ -1,4 +1,11 @@
-import { MagnifyingGlass, PlusCircle } from "@phosphor-icons/react"
+import {
+  BellSimple,
+  IconContext,
+  MagnifyingGlass,
+  PlusCircle,
+  Star,
+  User
+} from "@phosphor-icons/react"
 
 const NewServiceButton = () => {
   return (
@@ -24,10 +31,12 @@ export const Header = () => {
         </div>
       </div>
       <div className="flex gap-4">
-        <div className="w-8 h-8 bg-form-label rounded-full"></div>
-        <div className="w-8 h-8 bg-form-label rounded-full"></div>
+      <IconContext.Provider value={{ size: 16 }}>
+        <div className="mt-2 ml-2"><Star /></div>
+        <div className="mt-2 ml-2"><BellSimple /></div>
         <div className="h-full w-px bg-form-border"></div>
-        <div className="w-8 h-8 bg-primary-light rounded-full"></div>
+        <div className="mt-2 ml-2 bg-primary-light"><User /></div>
+      </IconContext.Provider>
       </div>
     </header>
   )
