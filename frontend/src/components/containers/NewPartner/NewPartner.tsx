@@ -10,19 +10,25 @@ import {
   PrimaryButton,
   SecondaryButton
 } from "../../layouts"
-import { API_URL } from "../../../config"
+import { CreatePartnerPartial } from "../../../interfaces"
 
 type CreatePartnerFormData = Zod.infer<typeof zodCreatePartnerSchema>
 
-const Header = () => (
+interface NewPartnerProps {
+  onBack: () => void
+  onNext: (partner: CreatePartnerPartial) => void
+}
+
+const Header = ({ onBack }: NewPartnerProps) => (
   <div className="flex gap-1 items-center px-12 pt-8 pb-4">
-    <CaretLeft size={20} />
+    <CaretLeft size={20} onClick={onBack} />
 
     <h1 className="text-typography text-2xl font-bold">Novo parceiro</h1>
   </div>
 )
 
-const Section = () => {
+
+const Section = ({ onNext }: NewPartnerProps) => {
   const {
     register,
     formState: {
@@ -39,19 +45,7 @@ const Section = () => {
 
     setConfirmPasswordErrorMessage("")
 
-    fetch(API_URL + "/partners", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        ...partner,
-        addressId: 1
-      })
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(console.error)
+    onNext(partner)
   }
 
   return (
@@ -96,8 +90,8 @@ const Section = () => {
   )
 }
 
-export const NewPartner = () => (
-  <Content header={<Header />}>
-    <Section />
+export const NewPartner = (props: NewPartnerProps) => (
+  <Content header={<Header {...props} />} >
+    <Section {...props} />
   </Content>
 )
