@@ -20,7 +20,7 @@ This section explains how to run tests.
 That's it. Since all tests in this project are unit tests, there's no need to have a running database.
 
 ## About decisions
-In this section, I'll talk about some decisions made during the project development.
+In this section, I'll talk about some decisions made during the backend development.
 
 ### Architecture
 I chose to adopt some Clean Architecture and Domain-Driven Design concepts to develop the backend side, because I believe this demonstrates my ability to develop complex but scalable systems in a short period of time. Despite that, I'm aware that this architecture would not be ideal for simpler systems, but I still chose it to show my skills and also challenge myself.

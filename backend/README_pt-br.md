@@ -20,7 +20,7 @@ Essa seção explica como rodar os testes.
 É isso. Já que todos os testes desse projeto são testes unitários, não há necessidade de ter um banco de dados rodando.
 
 ## Sobre decisões
-Nessa seção, eu vou falar mais sobre algumas decisões feitas durante o desenvolvimento do projeto.
+Nessa seção, eu vou falar mais sobre algumas decisões feitas durante o desenvolvimento do backend do projeto.
 
 ### Arquitetura
 Escolhi adotar alguns conceitos de Clean Architecture e Domain-Driven Design para desenvolver o lado backend, porque acredito que isso demonstre minha capacidade de desenvolver sistemas complexos, mas escaláveis, em um curto período de tempo. Apesar disso, tenho ciência de que essa arquitetura não seria ideal para sistemas mais simples, mas mesmo assim a escolhi para mostrar minhas habilidades e também desafiar a mim mesmo.
