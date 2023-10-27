@@ -1,8 +1,17 @@
-import { Content } from "../../layouts"
+import { CaretLeft, IconContext } from "@phosphor-icons/react"
+
+import {
+  Content,
+  PrimaryButton,
+  SecondaryButton
+} from "../../layouts"
 
 const Header = () => (
   <div className="flex gap-1 items-center px-12 pt-8 pb-4">
-    <div className="w-[19px] h-[19px] bg-typography"></div>
+    <IconContext.Provider value={{ size: 20 }}>
+      <CaretLeft />
+    </IconContext.Provider>
+
     <h1 className="text-typography text-2xl font-bold">Novo parceiro</h1>
   </div>
 )
@@ -20,12 +29,19 @@ const Section = () => (
           <span className="font-medium text-[10px] text-form-field">Endereços</span>
         </div>
       </div>
+
       <form action="" className="pt-6 pb-9">
           Conteúdo/Section
       </form>
-      <div>
-        Cancelar Próxima
+
+      <div className="flex w-full justify-end">
+        <div className="flex justify-end w-[506px] gap-3">
+          <SecondaryButton>Cancelar</SecondaryButton>
+
+          <PrimaryButton>Próxima</PrimaryButton>
+        </div>
       </div>
+
     </div>
   </section>
 )

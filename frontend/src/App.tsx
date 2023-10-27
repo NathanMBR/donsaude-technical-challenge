@@ -18,9 +18,9 @@ function App() {
   }
 
   return (
-    <div className="flex h-screen w-screen">
+    <div className="flex min-h-screen">
       <Navbar />
-      <div className="w-full">
+      <div className="flex flex-col w-full">
         <Header />
 
         {

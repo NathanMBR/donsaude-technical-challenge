@@ -6,7 +6,7 @@ interface ContentProps {
 
 export const Content = ({ children, header }: PropsWithChildren<ContentProps>) => {
   return (
-    <main className="bg-layout-background rounded-tl-2xl min-h-full">
+    <main className="bg-layout-background rounded-tl-2xl grow">
       { header }
       { children }
     </main>
