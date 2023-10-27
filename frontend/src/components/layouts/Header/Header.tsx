@@ -7,11 +7,9 @@ export const Header = () => {
           <span>Novo atendimento</span>
         </button>
 
-      <div className="relative">
-        <input className="pl-10 py-2 flex items-center gap-3 border-solid border border-form-border text-form-field placeholder:text-form-field rounded-2xl text-xs" placeholder="Buscar usuário">
-          <div className="absolute w-5 h-5 bg-form-field"></div>
-        </input>
-      </div>
+        <div className="relative">
+          <input className="pl-10 py-2 flex items-center gap-3 border-solid border border-form-border text-form-field placeholder:text-form-field rounded-2xl text-xs" placeholder="Buscar usuário" />
+        </div>
       </div>
       <div className="flex gap-4">
         <div className="w-8 h-8 bg-form-label rounded-full"></div>
