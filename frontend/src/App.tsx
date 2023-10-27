@@ -1,14 +1,31 @@
+import { ReactNode, useState } from "react"
+
 import { Navbar, Header } from "./components"
 import { NewPartner } from "./components"
 
 function App() {
+  type Steps = "ALL_PARTNERS" | "NEW_PARTNER" | "ALL_ADDRESSES"
+  const [step, setStep] = useState<Steps>("NEW_PARTNER")
+
+  const _handleStepChange = (newStep: Steps) => {
+    setStep(newStep)
+  }
+
+  const possibleSteps: Record<Steps, ReactNode> = {
+    ALL_PARTNERS: <></>,
+    NEW_PARTNER: <NewPartner />,
+    ALL_ADDRESSES: <></>
+  }
+
   return (
     <div className="flex h-screen w-screen">
       <Navbar />
       <div className="w-full">
         <Header />
 
-        <NewPartner />
+        {
+          possibleSteps[step]
+        }
       </div>
     </div>
   )
