@@ -48,5 +48,8 @@ This section contains instructions on how to run this codebase.
 ## Backend side
 [Click here](./backend/README.md) to read the README file specifically about the backend side.
 
+## Frontend side
+[Click here](./frontend/README.md) to read the README file specifically about the frontend side.
+
 ## License
 [MIT](./LICENSE)

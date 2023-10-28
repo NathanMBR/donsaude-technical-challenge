@@ -48,5 +48,8 @@ Essa seção contém instruções sobre como rodar este projeto.
 ## Backend
 [Clique aqui](./backend/README_pt-br.md) para ler o README especificamente sobre o backend.
 
+## Frontend
+[Clique aqui](./frontend/README_pt-br.md) para ler o README especificamente sobre o frontend.
+
 ## Licença
 [MIT](./LICENSE)
