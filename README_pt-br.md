@@ -18,12 +18,13 @@ Essa seção contém instruções sobre como rodar este projeto.
 1. Acessar a pasta do backend (`donsaude-technical-challenge/backend`)
 2. Instalar os pacotes com `npm ci`
 3. Gerar a tipagem do Prisma com `npx prisma generate`
-4. Ir para a pasta do frontend (`donsaude-technical-challenge/frontend`)
-5. Instalar os pacotes novamente com `npm ci`
-6. Voltar para a pasta raíz do projeto (`donsaude-technical-challenge`)
-7. Subir os contâineres com `docker compose up` (ou `docker-compose up` pra alguns casos)
-8. Esperar até que o endereço do host do frontend seja exibido no console (provavelmente `http://localhost:5173`)
-9. Acessar esse endereço pelo navegador
+4. Compilar o código com `npm run build`
+5. Ir para a pasta do frontend (`donsaude-technical-challenge/frontend`)
+6. Instalar os pacotes novamente com `npm ci`
+7. Voltar para a pasta raíz do projeto (`donsaude-technical-challenge`)
+8. Subir os contâineres com `docker compose up` (ou `docker-compose up` pra alguns casos)
+9. Esperar até que o endereço do host do frontend seja exibido no console (provavelmente `http://localhost:5173`)
+10. Acessar esse endereço pelo navegador
 
 ### Rodando sem o Docker
 #### Requisitos
