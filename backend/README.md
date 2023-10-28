@@ -3,7 +3,7 @@
 This folder contains the code for the Backend side of the challenge.
 
 ## Documentation
-The API documentation can be read [clicking here](./DOCS.md).
+The API documentation can be read [clicking here](./docs/API.md).
 
 ## Testing
 This section explains how to run tests.

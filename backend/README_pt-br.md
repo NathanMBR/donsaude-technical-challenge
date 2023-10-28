@@ -3,7 +3,7 @@
 Essa pasta contém o código backend do desafio.
 
 ## Documentação
-A documentação da API pode ser lida [clicando aqui](./DOCS_pt-br.md).
+A documentação da API pode ser lida [clicando aqui](./docs/API_pt-br.md).
 
 ## Testando
 Essa seção explica como rodar os testes.
